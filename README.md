@@ -10,13 +10,8 @@ Le jeu sera développé en Java selon une architecture **MVC** et tirera parti d
 ## Fonctionnalités de la première itération
 1. **Déplacements et exploration :** Le personnage peut se déplacer dans la zone de jeu.
 2. **Combat :** Le personnage peut se battre contre des ennemis.
-3. **Interaction avec des objets :** 
-   - Ramasser et déposer des objets.
-   - Utiliser des objets pour influencer l’environnement ou les personnages.
-4. **Interaction avec des animaux :**
-   - Nourrir des animaux affamés pour tenter de les apprivoiser.
-   - Protéger un animal apprivoisé des dangers.
-   - Recevoir des avertissements de l’animal apprivoisé sur les dangers imminents.
+3. **Interaction avec des objets :** Ramasser et déposer des objets.
+4. **Interaction avec des animaux :** Nourrir des animaux affamés pour tenter de les apprivoiser.
 5. **Zone de jeu thématique :** La zone de jeu pourra adopter le thème *Forêt* ou *Jungle*.
 
 ---
@@ -25,7 +20,7 @@ Le jeu sera développé en Java selon une architecture **MVC** et tirera parti d
 
 ### Architecture MVC
 - **Modèle (package `modele`)** :
-  - Contient les classes décrivant les entités du jeu (personnage, objets, animaux, ennemis, terrain, etc.).
+  - Contient les classes décrivant les entités du jeu.
 - **Vue (package `vue`)** :
   - Contient la classe `Ihm` pour interagir avec l’utilisateur via le terminal.
 - **Contrôleur (package `controleur`)** :
@@ -58,28 +53,11 @@ src/
 │   ├── Animal.java
 │   ├── Objet.java
 │   ├── Terrain.java
-│   └── Ennemi.java
+│   └── 
 ├── vue/
 │   └── Ihm.java
 └── Main.java
 ```
-
----
-
-## Instructions de Compilation et d'Exécution
-1. Clonez le dépôt :
-   ```bash
-   git clone <url-du-dépôt>
-   cd <nom-du-dépôt>
-   ```
-2. Compilez le projet :
-   ```bash
-   javac src/**/*.java -d bin
-   ```
-3. Exécutez le jeu :
-   ```bash
-   java -cp bin Main
-   ```
 
 ---
 
