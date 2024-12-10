@@ -51,8 +51,7 @@ src/
 ├── modele/
 │   ├── Personnage.java
 │   ├── Animal.java
-│   ├── Objet.java
-│   ├── Terrain.java
+│   ├── Carte.java
 │   └── 
 ├── vue/
 │   └── Ihm.java
