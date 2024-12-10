@@ -1,6 +1,7 @@
 package Vue;
 
 import Modele.Carte;
+import Modele.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,13 +73,27 @@ public class Ihm {
                     }
 
                 }else {
-                    //todo
                     switch (caseCarte) {
                         case "A" :
-                            System.out.print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"A"+ANSI_RESET);
+                            System.out.print("🌴");
+                            break;
+                        case "E" :
+                            System.out.print("🐒");
+                            break;
+                        case "@" :
+                            System.out.print("🥷");
+                            break;
+                        case "B" :
+                            System.out.print("🪨");
+                            break;
+                        case "G" :
+                            System.out.print("🍌");
+                            break;
+                        case "C" :
+                            System.out.print("🍄");
                             break;
                         default:
-                            print(caseCarte);
+                            print("⬛️");
                     }
                 }
             }
@@ -90,13 +105,13 @@ public class Ihm {
 
             }
 
-    public static Map<Integer, Integer> DemanderCreationCarte() {
+    public Pair<Integer, Integer> DemanderCreationCarte() {
         Scanner scanner = new Scanner(System.in);
         int nChoixCreations;
         while (true) {
             println("\uD83D\uDE4B\u200D Voulez vous créer une nouvelle carte ou de charger une carte depuis un fichier ??");
             System.out.println("- 1 Crée une nouvelle carte");
-            System.out.println("- 2 charger une carte ");
+            System.out.println("- 2 charger une carte \n");
             if (!scanner.hasNextInt()) {
                 System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
                 scanner.next();
@@ -119,11 +134,46 @@ public class Ihm {
                 break;
             }
         }
-        return new HashMap<>(nChoixCreations, nChoixTheme);
+        return new Pair<>(nChoixCreations,nChoixTheme);
     }
-    public int AfficherCaseAutourPersonnage(List<List<String>> li){
-        //todo
-        return 0;
+    public Pair<Integer,String> DemmanderChoixCaseAutourPersonnage(List<List<String>> li) {
+        Map<Integer, Pair<Integer,String>> liChoix = new HashMap<>();
+        int nCpt = 1;
+        int nCpt2=1;
+        for (List<String> ligneCarte : li) {
+            for (String caseCarte : ligneCarte) {
+                if (caseCarte.equals("A") || caseCarte.equals("B")) {
+                    print("❌");
+                } else if (caseCarte.equals("@")) {
+                    print("🙋");
+                } else {
+                    print(nCpt + "|");
+                    liChoix.putIfAbsent(nCpt, new Pair<>(nCpt2,caseCarte));
+                    nCpt++;
+                }
+                nCpt2++;
+                if ((nCpt2-1)%3==0){
+                    print("\n");
+                }
+            }
+
+
+        }
+        print("\n");
+
+        int nChoixCase;
+        while (true) {
+            println("\uD83D\uDE4B\u200D Quel case voulez vous choisir ??");
+            Scanner scanner = new Scanner(System.in);
+            if (!scanner.hasNextInt()) {
+                System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                scanner.next();
+            } else {
+                nChoixCase = scanner.nextInt();
+                break;
+            }
+        }
+        return liChoix.get(nChoixCase);
     }
     public String AfficherChoix(){
         //todo
