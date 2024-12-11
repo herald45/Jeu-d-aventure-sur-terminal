@@ -46,8 +46,6 @@ public class Ihm {
     }
 
     public void afficherCarte(Carte c, List<Animal> li_a){
-        System.out.println(c.getTheme());
-        System.out.println(c.getNbLignes() + "\n" + c.getNbColonnes());
         String caseCarte;
         for (int i = 0; i <c.getNbLignes(); i++){
             for (int j = 0; j <c.getNbColonnes(); j++){
