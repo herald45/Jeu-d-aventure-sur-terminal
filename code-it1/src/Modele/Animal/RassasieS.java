@@ -4,8 +4,11 @@ package Modele.Animal;
 
 
 import Modele.Carte.Carte;
+import Vue.Ihm;
 
 import java.util.ArrayList;
+
+import static Vue.Ihm.*;
 
 public class RassasieS extends EtatSinge {
 
@@ -19,8 +22,6 @@ public class RassasieS extends EtatSinge {
     @Override
     public void JouerUnTour(int ligne, int colone, Carte c) {
         vide = new ArrayList<>();
-
-        System.out.println("rassasie");
 
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
             for (int j = (colone - 1); j < (colone + 2); j++) {
@@ -53,12 +54,12 @@ public class RassasieS extends EtatSinge {
     }
 
     public void TaperSinge(int ligne, int colone, Carte c) {
-        /** doit rien faire mais jsp quooi mettre **/
+        Ihm.println("aiiiie ");
     }
 
     @Override
     public String toString() {
-        return "";
+        return ANSI_YELLOW_BACKGROUND+"🐒"+ANSI_RESET;
     }
 
 }

@@ -21,6 +21,7 @@ public abstract class EtatEcureuil {
 
     public abstract void JouerUnTour(int ligne, int colone, Carte c);
     public abstract void TaperEcureuil(int ligne, int colone, Carte c);
+    public abstract String toString();
 
 
 }

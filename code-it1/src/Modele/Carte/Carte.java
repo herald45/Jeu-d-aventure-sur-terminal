@@ -15,6 +15,7 @@ public class Carte {
     private int nbLignes;
 
     private int nbColonnes;
+    private CarteTheme carteTheme;
 
     public Carte(String fichier){
         CarteTheme t1 = new Fichier(fichier);
@@ -23,6 +24,7 @@ public class Carte {
     }
 
     public Carte(int lignes, int colonnes, String t) {
+
 
         this.nbLignes = lignes;
         this.nbColonnes = colonnes;
@@ -35,12 +37,12 @@ public class Carte {
         }
         switch (theme){
             case "J":
-                CarteTheme t1 = new Jungle();
-                t1.genererCarte(this);
+                setCarteTheme(new Jungle());
+                carteTheme.genererCarte(this);
                 break;
             case "F":
-                CarteTheme t2 = new Foret();
-                t2.genererCarte(this);
+                setCarteTheme(new Foret());
+                carteTheme.genererCarte(this);
                 break;
             default:
                 Ihm.println("le Theme choisie n'est pas bon choisir entre J et F");
@@ -72,6 +74,10 @@ public class Carte {
 
     }
 
+
+    public void setCarteTheme(CarteTheme carteTheme) {
+        this.carteTheme = carteTheme;
+    }
 
     public String getTheme() {
         return theme;

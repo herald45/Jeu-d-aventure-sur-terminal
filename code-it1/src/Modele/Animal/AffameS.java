@@ -6,6 +6,8 @@ import Vue.Ihm;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static Vue.Ihm.* ;
+
 public class AffameS extends EtatSinge {
 
     protected ArrayList<int[]> champigion ;
@@ -21,7 +23,6 @@ public class AffameS extends EtatSinge {
     public void JouerUnTour(int ligne, int colone, Carte c) {
         vide = new ArrayList<>();
         champigion = new ArrayList<>();
-        System.out.println("affame");
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes() && (i!= animal.ligne || j!= animal.colone)) {
@@ -34,6 +35,7 @@ public class AffameS extends EtatSinge {
                             if (animal.cons == 1) {
                                 animal.setEtat(new AmiS(animal));
                             } else {
+                                animal.setEtat(new RassasieS(animal));
                                 animal.cons++;
                             }
                         } else {
@@ -76,8 +78,6 @@ public class AffameS extends EtatSinge {
             c.deplacer(ligne, colone, element[0], element[1], "S");
             animal.ligne= element[0];
             animal.colone= element[1];
-        } else {
-            /** exeption**/
         }
 
 
@@ -102,14 +102,13 @@ public class AffameS extends EtatSinge {
 
     @Override
     public void TaperSinge(int ligne, int colone, Carte c) {
-        /** doit rien faire mais jsp quooi mettre **/
-        Ihm.println("aiiiie wsssssh");
-        //todo
+        Ihm.println("aiiiie ");
+
     }
 
     @Override
     public String toString() {
-        return "";
+        return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
     }
 
 }

@@ -58,6 +58,14 @@ public class Animal {
         this.nbjour = nbjour;
     }
 
+    public int getLigne() {
+        return ligne;
+    }
+
+    public int getColone() {
+        return colone;
+    }
+
     @Override
     public String toString() {
         if (etat instanceof EtatEcureuil) {

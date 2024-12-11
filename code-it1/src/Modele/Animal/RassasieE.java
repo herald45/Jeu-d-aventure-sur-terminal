@@ -19,9 +19,6 @@ public class RassasieE extends EtatEcureuil {
     @Override
     public void JouerUnTour(int ligne, int colone, Carte c) {
         vide = new ArrayList<>();
-
-        System.out.println("rassasie");
-
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes()  && j >= 0 && j < c.getNbColonnes() && (i!= animal.ligne || j!= animal.colone)) {
@@ -40,9 +37,6 @@ public class RassasieE extends EtatEcureuil {
             c.deplacer(ligne,colone ,element[0],element[1] ,"E");
             animal.ligne= element[0];
             animal.colone= element[1];
-        }
-        else{
-            /** exeption**/
         }
 
         animal.setNbjour(animal.getNbjour() - 1);

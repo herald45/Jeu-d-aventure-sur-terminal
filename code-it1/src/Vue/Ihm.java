@@ -1,5 +1,6 @@
 package Vue;
 
+import Modele.Animal.Animal;
 import Modele.Carte.Carte;
 import Modele.Pair;
 import Modele.Personnage;
@@ -44,18 +45,25 @@ public class Ihm {
         System.out.print(s);
     }
 
-    public void afficherCarte(Carte c){
+    public void afficherCarte(Carte c, List<Animal> li_a){
         System.out.println(c.getTheme());
         System.out.println(c.getNbLignes() + "\n" + c.getNbColonnes());
-        for (List<String> ligneCarte : c.getMap()) {
-            for (String caseCarte : ligneCarte) {
+        String caseCarte;
+        for (int i = 0; i <c.getNbLignes(); i++){
+            for (int j = 0; j <c.getNbColonnes(); j++){
+                caseCarte=c.getCase(i,j);
                 if (c.getTheme().equals("F")){
                     switch (caseCarte) {
                         case "A" :
                             System.out.print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"A"+ANSI_RESET);
                             break;
                         case "E" :
-                            System.out.print("E");//
+                            for (Animal ani : li_a) {
+                                if (ani.getColone()==j && ani.getLigne()==i){
+                                    print(ani);
+                                    break;
+                                }
+                            }
                             break;
                         case "@" :
                             System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+caseCarte+ANSI_RESET);
@@ -79,7 +87,12 @@ public class Ihm {
                             System.out.print("🌴");
                             break;
                         case "S" :
-                            System.out.print("🐒");
+                            for (Animal ani : li_a) {
+                                if (ani.getColone()==j && ani.getLigne()==i){
+                                    print(ani);
+                                    break;
+                                }
+                            }
                             break;
                         case "@" :
                             System.out.print("🧑‍🎄");
@@ -203,7 +216,11 @@ public class Ihm {
                 scanner.next();
             } else {
                 nChoixCase = scanner.nextInt();
-                break;
+                if (0>nChoixCase || nChoixCase>nCpt-1){
+                    System.out.println("🙅‍ Saisie invalide. Choisir un chiffre entre 0  et "+nCpt);
+                }else {
+                    break;
+                }
             }
         }
         return liChoix.get(nChoixCase);
@@ -214,7 +231,10 @@ public class Ihm {
             println("un champignon");
         } else if (c.equals("G")) {
             println("de la nouriture");
-        }else {
+        } else if (c.equals("E")||c.equals("S")) {
+            println("un animal");
+            return true;
+        } else {
             println("rien");
         }
         println("Se deplacer ? (O/N)");
@@ -271,6 +291,21 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("\uD83D\uDE4B\u200D  Souhaitez-vous continuer? (O/N)");
+            rep = sc.next();
+            if (rep.matches("[Oo]")) {
+                return true;
+            } else if (rep.matches("[Nn]")) {
+                return false;
+            } else {
+                System.out.println("🙅‍ Saisir soit O ou N (O/N)");
+            }
+        }
+    }
+    public boolean demanderTaper() {
+        String rep;
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("\uD83D\uDE4B\u200D  Souhaitez-vous fraper l'animal? (O/N)");
             rep = sc.next();
             if (rep.matches("[Oo]")) {
                 return true;

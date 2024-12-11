@@ -56,7 +56,7 @@ public class Controleur {
             }
         }
         Ihm.println("voici la carte :");
-        ihm.afficherCarte(carte);
+        ihm.afficherCarte(carte,li_A);
         Ihm.println("----------- Debut Partie ---------");
         lancerPartie(carte,li_A,P);
     }
@@ -65,13 +65,11 @@ public class Controleur {
         boolean Fin=false;
         int nCpt=1;
         while (!Fin){
-            for (int i = 0;i<10;i++){
-                for (int j=0;j<liA.size();j++){
-                    liA.get(j).JouerUnTour(carte);
-                }
+            for (int j=0;j<liA.size();j++){
+                liA.get(j).JouerUnTour(carte);
             }
             Ihm.println("Tour "+nCpt);
-            ihm.afficherCarte(carte);
+            ihm.afficherCarte(carte,liA);
             boolean continu=true;
             Pair<Pair<Integer,Integer>,String> choixCoup;
             Pair<Integer,Integer> coorDuCoup;
@@ -84,7 +82,16 @@ public class Controleur {
                         P.getLi_nouriture().add(choixCoup.getSecond());
                         carte.deplacer(P.getLigne(),P.getColone(),coorDuCoup.getFirst(),coorDuCoup.getSecond(),"@");
                         P.setLigne(coorDuCoup.getFirst());P.setColone(coorDuCoup.getSecond());
-                    }else {
+                    } else if (choixCoup.getSecond().equals("E")||choixCoup.getSecond().equals("S")) {
+                        if (ihm.demanderTaper()){
+                            for (Animal ani :liA){
+                                if (ani.getLigne()==coorDuCoup.getFirst() && ani.getColone()==coorDuCoup.getSecond()){
+                                    ani.TaperAnimal(coorDuCoup.getFirst(),coorDuCoup.getSecond(),carte);
+                                }
+                            }
+                        }
+
+                    } else {
                         carte.deplacer(P.getLigne(),P.getColone(),coorDuCoup.getFirst(),coorDuCoup.getSecond(),"@");
                         P.setLigne(coorDuCoup.getFirst());P.setColone(coorDuCoup.getSecond());
                     }
@@ -94,13 +101,17 @@ public class Controleur {
                     if (choixPose==1){
                         P.getLi_nouriture().remove("G");
                         carte.setCase(coorDuCoup.getFirst(),coorDuCoup.getSecond(),"G");
-                    }else {
+                        continu=false;
+                    }else if (choixPose==2){
                         P.getLi_nouriture().remove("C");
                         carte.setCase(coorDuCoup.getFirst(),coorDuCoup.getSecond(),"C");
+                        continu=false;
+                    }else {
+                        continu=true;
                     }
-                    continu=false;
                 }else {
                     Ihm.println("retour ->");
+                    continu=true;
                 }
 
             }

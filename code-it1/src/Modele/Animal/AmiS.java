@@ -1,8 +1,11 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
+import Vue.Ihm;
 
 import java.util.ArrayList;
+
+import static Vue.Ihm.*;
 
 public class AmiS extends EtatSinge{
 
@@ -15,12 +18,11 @@ public class AmiS extends EtatSinge{
     @Override
     public void JouerUnTour(int ligne, int colone, Carte c) {
         vide = new ArrayList<>();
-
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes() && (i!= animal.ligne || j!= animal.colone)) {
 
-                    if (c.getLigne(i).get(j) == "") {
+                    if (c.getLigne(i).get(j) == " ") {
                         vide.add(new int[]{i, j});
                     }
                 }
@@ -32,9 +34,6 @@ public class AmiS extends EtatSinge{
             int nombreAleatoire = (int) (Math.random() * vide.size());
             int[] element = vide.get(nombreAleatoire);
             c.deplacer(ligne,colone ,element[0],element[1] ,"S");
-        }
-        else{
-            /** exeption**/
         }
 
         animal.setNbjour(animal.getNbjour() - 1);
@@ -57,6 +56,6 @@ public class AmiS extends EtatSinge{
     }
 
     public String toString() {
-        return "";
+        return ANSI_BLUE_BACKGROUND+"🐒"+ANSI_RESET;
     }
 }
