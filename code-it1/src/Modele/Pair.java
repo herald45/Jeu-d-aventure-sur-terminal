@@ -14,6 +14,7 @@ public class Pair<F, S> {
         this.second = second;
     }
 
+
     /**
      * Récupère le premier élément de la paire.
      *

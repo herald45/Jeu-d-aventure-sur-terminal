@@ -1,7 +1,8 @@
 package Vue;
 
-import Modele.Carte;
+import Modele.Carte.Carte;
 import Modele.Pair;
+import Modele.Personnage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,8 +46,8 @@ public class Ihm {
 
     public void afficherCarte(Carte c){
         System.out.println(c.getTheme());
-        System.out.println(c.getLignes() + "\n" + c.getColonnes());
-        for (List<String> ligneCarte : c.getCarte()) {
+        System.out.println(c.getNbLignes() + "\n" + c.getNbColonnes());
+        for (List<String> ligneCarte : c.getMap()) {
             for (String caseCarte : ligneCarte) {
                 if (c.getTheme().equals("F")){
                     switch (caseCarte) {
@@ -54,7 +55,7 @@ public class Ihm {
                             System.out.print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"A"+ANSI_RESET);
                             break;
                         case "E" :
-                            System.out.print(ANSI_YELLOW_BACKGROUND+ANSI_BLACK+caseCarte+ANSI_RESET);
+                            System.out.print("E");//
                             break;
                         case "@" :
                             System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+caseCarte+ANSI_RESET);
@@ -66,7 +67,7 @@ public class Ihm {
                             System.out.print(ANSI_RED_BACKGROUND+ANSI_YELLOW+caseCarte+ANSI_RESET);
                             break;
                         case "C" :
-                            System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+caseCarte+ANSI_RESET);
+                            System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+"C"+ANSI_RESET);
                             break;
                         default:
                             print(ANSI_GREEN_BACKGROUND+caseCarte+ANSI_RESET);
@@ -77,11 +78,11 @@ public class Ihm {
                         case "A" :
                             System.out.print("🌴");
                             break;
-                        case "E" :
+                        case "S" :
                             System.out.print("🐒");
                             break;
                         case "@" :
-                            System.out.print("🥷");
+                            System.out.print("🧑‍🎄");
                             break;
                         case "B" :
                             System.out.print("🪨");
@@ -99,15 +100,12 @@ public class Ihm {
             }
             System.out.println();
         }
-
-
-
-
             }
 
-    public Pair<Integer, Integer> DemanderCreationCarte() {
+
+
+    public int DemanderCreationCarte() {
         Scanner scanner = new Scanner(System.in);
-        int nChoixCreations;
         while (true) {
             println("\uD83D\uDE4B\u200D Voulez vous créer une nouvelle carte ou de charger une carte depuis un fichier ??");
             System.out.println("- 1 Crée une nouvelle carte");
@@ -116,11 +114,20 @@ public class Ihm {
                 System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
                 scanner.next();
             } else {
-                nChoixCreations = scanner.nextInt();
-                break;
+                return scanner.nextInt();
             }
         }
-        int nChoixTheme;
+    }
+    public String DemanderFichier() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            println("Inscrivez le chemin d'accée a votre fichier (ex:mappe.txt) :");
+            return scanner.next();
+        }
+    }
+
+    public int DemanderTheme() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\uD83D\uDE4B\u200D Quelle Theme voulez vous choisir ?");
             System.out.println("- 1 Jungle");
@@ -130,25 +137,51 @@ public class Ihm {
                 System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
                 scanner.next();
             } else {
-                nChoixTheme = scanner.nextInt();
+                return scanner.nextInt();
+            }
+        }
+    }
+    public Pair<Integer, Integer> DemanderTailleCarte() {
+        Scanner scanner = new Scanner(System.in);
+        Pair<Integer,Integer> Taille=new Pair<>(0,0);
+        while (true) {
+            System.out.println("\uD83D\uDE4B\u200D Quelle Taille voulez vous choisir pour la carte ?");
+            System.out.println("Ligne :");
+            if (!scanner.hasNextInt()) {
+                System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                scanner.next();
+            } else {
+                Taille.setFirst(scanner.nextInt());
                 break;
             }
         }
-        return new Pair<>(nChoixCreations,nChoixTheme);
+        while (true) {
+            System.out.println("Colonne :");
+            if (!scanner.hasNextInt()) {
+                System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                scanner.next();
+            } else {
+                Taille.setSecond(scanner.nextInt());
+                break;
+            }
+        }
+        return Taille;
     }
-    public Pair<Integer,String> DemmanderChoixCaseAutourPersonnage(List<List<String>> li) {
-        Map<Integer, Pair<Integer,String>> liChoix = new HashMap<>();
+
+    public Pair<Pair<Integer,Integer>,String> DemmanderChoixCaseAutourPersonnage(Carte c,Personnage p) {
+
+        Map<Integer, Pair<Pair<Integer,Integer>,String>> liChoix = new HashMap<>();
         int nCpt = 1;
         int nCpt2=1;
-        for (List<String> ligneCarte : li) {
-            for (String caseCarte : ligneCarte) {
-                if (caseCarte.equals("A") || caseCarte.equals("B")) {
+        for (int i = (p.getLigne() - 1); i < (p.getLigne() + 2); i++) {
+            for (int j = (p.getColone() - 1); j < (p.getColone() + 2); j++) {
+                if (c.getCase(i,j).equals("A") || c.getCase(i,j).equals("B")) {
                     print("❌");
-                } else if (caseCarte.equals("@")) {
+                } else if (c.getCase(i,j).equals("@")) {
                     print("🙋");
                 } else {
-                    print(nCpt + "|");
-                    liChoix.putIfAbsent(nCpt, new Pair<>(nCpt2,caseCarte));
+                    print(nCpt + " ");
+                    liChoix.putIfAbsent(nCpt, new Pair<>(new Pair<>(i,j),c.getCase(i,j)));
                     nCpt++;
                 }
                 nCpt2++;
@@ -175,11 +208,79 @@ public class Ihm {
         }
         return liChoix.get(nChoixCase);
     }
-    public String AfficherChoix(){
-        //todo
-        return "D";
-    }
+    public Boolean AfficherChoix(String c){
+        print("Sur la case il y a ");
+        if (c.equals("C")){
+            println("un champignon");
+        } else if (c.equals("G")) {
+            println("de la nouriture");
+        }else {
+            println("rien");
+        }
+        println("Se deplacer ? (O/N)");
+        Scanner sc = new Scanner(System.in);
+        String rep;
+        while (true){
+            rep= sc.next();
+            if (rep.matches("[Oo]")) {
+                return true;
+            } else if (rep.matches("[Nn]")) {
+                return false;
+            } else {
+                System.out.println("🙅‍ Saisir soit O ou N (O/N)");
+            }
 
+        }
+    }
+    public int DemmenderPoserObjet(Personnage p){
+        println("voulez vous Poser un objet ? (O/N)");
+        Scanner sc = new Scanner(System.in);
+        String rep;
+        while (true){
+            rep= sc.next();
+            if (rep.matches("[Oo]")) {
+                int choix_pose = 0;
+                if (p.getLi_nouriture().contains("C") && p.getLi_nouriture().contains("G")) {
+                    Scanner scanner = new Scanner(System.in);
+                    while (true) {
+                            println("1- Poser nouriture");
+                            println("2- Poser Champignon");
+                            if (!scanner.hasNextInt()) {
+                                System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                                scanner.next();
+                            } else {
+                                choix_pose = scanner.nextInt();
+                                break;
+                            }
+                        }
+                } else if (p.getLi_nouriture().contains("G")) {
+                    return 1;
+                }else {
+                    return 2;
+                }
+                return choix_pose;
+            } else if (rep.matches("[Nn]")) {
+                return 0;
+            } else {
+                System.out.println("🙅‍ Saisir soit O ou N (O/N)");
+            }
+    }
+    }
+    public boolean demanderContinuer() {
+        String rep;
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("\uD83D\uDE4B\u200D  Souhaitez-vous continuer? (O/N)");
+            rep = sc.next();
+            if (rep.matches("[Oo]")) {
+                return true;
+            } else if (rep.matches("[Nn]")) {
+                return false;
+            } else {
+                System.out.println("🙅‍ Saisir soit O ou N (O/N)");
+            }
+        }
+    }
 
 
 
