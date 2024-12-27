@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Fichier implements CarteTheme {
+public class Fichier implements CarteFactory {
     private String nomFichier;
 
     public Fichier(String fichier){

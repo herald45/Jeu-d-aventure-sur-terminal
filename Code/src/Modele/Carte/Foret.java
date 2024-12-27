@@ -1,7 +1,7 @@
 package Modele.Carte;
 import java.util.Random;
 
-public class Foret implements CarteTheme {
+public class Foret implements CarteFactory {
 
     private final String[] arbreBuisson = {"A","B"};
     private final String[] nourriture = {"G","C"};

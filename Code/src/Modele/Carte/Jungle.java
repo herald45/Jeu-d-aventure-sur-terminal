@@ -3,7 +3,7 @@ import Vue.Ihm;
 
 import java.util.Random;
 
-public class Jungle implements CarteTheme {
+public class Jungle implements CarteFactory {
     private final String[] cocotierEtRocher = {"A","B"};
     private final String[] nourriture = {"G","C"};
 

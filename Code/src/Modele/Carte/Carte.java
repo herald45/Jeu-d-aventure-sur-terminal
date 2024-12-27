@@ -15,12 +15,11 @@ public class Carte {
     private int nbLignes;
 
     private int nbColonnes;
-    private CarteTheme carteTheme;
+    private CarteFactory fabrique;
 
     public Carte(String fichier){
-        CarteTheme t1 = new Fichier(fichier);
-        t1.genererCarte(this);
-
+        fabrique = new Fichier(fichier);
+        fabrique.genererCarte(this);
     }
 
     public Carte(int lignes, int colonnes, String t) {
@@ -37,17 +36,16 @@ public class Carte {
         }
         switch (theme){
             case "J":
-                setCarteTheme(new Jungle());
-                carteTheme.genererCarte(this);
+                fabrique=new Jungle();
                 break;
             case "F":
-                setCarteTheme(new Foret());
-                carteTheme.genererCarte(this);
+                fabrique=new Foret();
                 break;
             default:
                 Ihm.println("le Theme choisie n'est pas bon choisir entre J et F");
                 break;
         }
+        fabrique.genererCarte(this);
     }
 
     public List<String> choixCase(int x, int y){
@@ -72,11 +70,6 @@ public class Carte {
         map.get(ligne).set(colone," ");
         map.get(i).set(j,c);
 
-    }
-
-
-    public void setCarteTheme(CarteTheme carteTheme) {
-        this.carteTheme = carteTheme;
     }
 
     public String getTheme() {
