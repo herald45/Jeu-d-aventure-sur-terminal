@@ -1,5 +1,6 @@
 package Controleur;
 
+import Modele.Environement.Objet;
 import Modele.Animal.Animal;
 import Modele.Carte.Carte;
 import Modele.Pair;
@@ -20,6 +21,7 @@ public class Controleur {
     public void jouerPartie() {
         Carte carte;
         List<Animal> li_A=new ArrayList<>();
+        List<Objet> li_O=new ArrayList<>();
         if(ihm.DemanderCreationCarte()==1){
             Pair<Integer,Integer> taille=ihm.DemanderTailleCarte();
             if (ihm.DemanderTheme()==1){
@@ -36,6 +38,13 @@ public class Controleur {
                     if (carte.getCase(i,j).equals("E")){
                         li_A.add(new Animal(i,j,"E"));
                     }
+                    if (carte.getCase(i,j).equals("A")){
+                        li_O.add(new Objet(i,j,"A"));
+                    }
+                    if (carte.getCase(i,j).equals("B")){
+                        li_O.add(new Objet(i,j,"B"));
+                    }
+
                 }
             }
         }else {
@@ -43,6 +52,12 @@ public class Controleur {
                 for (int j = 0; j <carte.getNbColonnes(); j++){
                     if (carte.getCase(i,j).equals("S")){
                         li_A.add(new Animal(i,j,"S"));
+                    }
+                    if (carte.getCase(i,j).equals("A")){
+                        li_O.add(new Objet(i,j,"A"));
+                    }
+                    if (carte.getCase(i,j).equals("B")){
+                        li_O.add(new Objet(i,j,"B"));
                     }
                 }
             }

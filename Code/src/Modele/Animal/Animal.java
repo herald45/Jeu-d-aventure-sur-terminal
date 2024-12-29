@@ -76,9 +76,5 @@ public class Animal {
         return "";
     }
 
-    public void test(){
-        System.out.println("test re");
-    }
-
 
 }
