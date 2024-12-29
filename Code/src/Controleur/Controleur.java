@@ -1,8 +1,8 @@
 package Controleur;
 
-import Modele.Environement.Objet;
 import Modele.Animal.Animal;
 import Modele.Carte.Carte;
+import Modele.Environement.Objet;
 import Modele.Pair;
 import Modele.Personnage;
 import Vue.Ihm;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controleur {
-    private Ihm ihm;
+    private final Ihm ihm;
 
 
     public Controleur(Ihm ihm) {
@@ -37,13 +37,11 @@ public class Controleur {
                 for (int j = 0; j <carte.getNbColonnes(); j++){
                     if (carte.getCase(i,j).equals("E")){
                         li_A.add(new Animal(i,j,"E"));
-                    }
-                    if (carte.getCase(i,j).equals("A")){
-                        li_O.add(new Objet(i,j,"A"));
-                    }
-                    if (carte.getCase(i,j).equals("B")){
-                        li_O.add(new Objet(i,j,"B"));
-                    }
+                    }else if (carte.getCase(i,j).equals("A")){
+                        li_O.add(new Objet.Arbre(i,j));
+                    }else if (carte.getCase(i,j).equals("B")){
+                        li_O.add(new Objet.Buisson(i,j));
+                    }//todo ajouter renard et hibou
 
                 }
             }
@@ -53,12 +51,12 @@ public class Controleur {
                     if (carte.getCase(i,j).equals("S")){
                         li_A.add(new Animal(i,j,"S"));
                     }
-                    if (carte.getCase(i,j).equals("A")){
-                        li_O.add(new Objet(i,j,"A"));
+                    if (carte.getCase(i,j).equals("J")){
+                        li_O.add(new Objet.Palemier(i,j));
                     }
-                    if (carte.getCase(i,j).equals("B")){
-                        li_O.add(new Objet(i,j,"B"));
-                    }
+                    if (carte.getCase(i,j).equals("P")){
+                        li_O.add(new Objet.Rocher(i,j));
+                    }//todo ajouter serpent  et scorpion
                 }
             }
         }
@@ -71,20 +69,20 @@ public class Controleur {
             }
         }
         Ihm.println("voici la carte :");
-        ihm.afficherCarte(carte,li_A);
+        ihm.afficherCarte(carte,li_A,li_O);
         Ihm.println("----------- Debut Partie ---------");
-        lancerPartie(carte,li_A,P);
+        lancerPartie(carte,li_A,li_O,P);
     }
 
-    private void lancerPartie(Carte carte, List<Animal> liA, Personnage P) {
+    private void lancerPartie(Carte carte, List<Animal> liA,List<Objet> liO, Personnage P) {
         boolean Fin=false;
         int nCpt=1;
         while (!Fin){
-            for (int j=0;j<liA.size();j++){
-                liA.get(j).JouerUnTour(carte);
+            for (Animal animal : liA) {
+                animal.JouerUnTour(carte);
             }
             Ihm.println("Tour "+nCpt);
-            ihm.afficherCarte(carte,liA);
+            ihm.afficherCarte(carte,liA,liO);
             boolean continu=true;
             Pair<Pair<Integer,Integer>,String> choixCoup;
             Pair<Integer,Integer> coorDuCoup;
@@ -116,11 +114,9 @@ public class Controleur {
                     if (choixPose==1){
                         P.getLi_nouriture().remove("G");
                         carte.setCase(coorDuCoup.getFirst(),coorDuCoup.getSecond(),"G");
-                        continu=false;
                     }else if (choixPose==2){
                         P.getLi_nouriture().remove("C");
                         carte.setCase(coorDuCoup.getFirst(),coorDuCoup.getSecond(),"C");
-                        continu=false;
                     }else {
                         continu=true;
                     }

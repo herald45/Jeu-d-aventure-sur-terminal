@@ -2,6 +2,7 @@ package Vue;
 
 import Modele.Animal.Animal;
 import Modele.Carte.Carte;
+import Modele.Environement.Objet;
 import Modele.Pair;
 import Modele.Personnage;
 
@@ -45,29 +46,18 @@ public class Ihm {
         System.out.print(s);
     }
 
-    public void afficherCarte(Carte c, List<Animal> li_a){
+    public void afficherCarte(Carte c, List<Animal> li_a,List<Objet> li_o){
         String caseCarte;
         for (int i = 0; i <c.getNbLignes(); i++){
             for (int j = 0; j <c.getNbColonnes(); j++){
                 caseCarte=c.getCase(i,j);
                 if (c.getTheme().equals("F")){
                     switch (caseCarte) {
-                        case "A" :
-                            System.out.print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"A"+ANSI_RESET);
-                            break;
-                        case "E" :
-                            for (Animal ani : li_a) {
-                                if (ani.getColone()==j && ani.getLigne()==i){
-                                    print(ani);
-                                    break;
-                                }
-                            }
-                            break;
                         case "@" :
                             System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+caseCarte+ANSI_RESET);
                             break;
-                        case "B" :
-                            System.out.print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"B"+ANSI_RESET);
+                        case "M" :
+                            System.out.print(ANSI_CYAN_BACKGROUND+ANSI_YELLOW+"C"+ANSI_RESET);
                             break;
                         case "G" :
                             System.out.print(ANSI_RED_BACKGROUND+ANSI_YELLOW+caseCarte+ANSI_RESET);
@@ -75,35 +65,54 @@ public class Ihm {
                         case "C" :
                             System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+"C"+ANSI_RESET);
                             break;
+                        case "A","B" :
+                            for (Objet obj : li_o) {
+                                if (obj.getColone() == j && obj.getLigne() == i) {
+                                    print(obj);//si c un objet
+                                    break;
+                                }
+                            }
+                            break;
+                        case "R","H","E" ://pour l'instant il y a pas encore le renard et le hibou
+                            for (Animal ani : li_a) {
+                                if (ani.getColone()==j && ani.getLigne()==i){
+                                    print(ani);//si c'est un animal
+                                    break;
+                                }
+                            }
+                            break;
                         default:
                             print(ANSI_GREEN_BACKGROUND+caseCarte+ANSI_RESET);
                     }
 
                 }else {
                     switch (caseCarte) {
-                        case "A" :
-                            System.out.print("🌴");
-                            break;
-                        case "S" :
-                            for (Animal ani : li_a) {
-                                if (ani.getColone()==j && ani.getLigne()==i){
-                                    print(ani);
-                                    break;
-                                }
-                            }
-                            break;
                         case "@" :
                             System.out.print("🧑‍🎄");
-                            break;
-                        case "B" :
-                            System.out.print("🪨");
                             break;
                         case "G" :
                             System.out.print("🍌");
                             break;
                         case "C" :
-                            System.out.print("🍄");
+                            System.out.print("🍄‍🟫");//champinon normaux
                             break;
+                        case "M" :
+                            System.out.print("🍄");//champinon hallucinogène
+                            break;
+                        case "J","P" :
+                            for (Objet obj : li_o) {
+                                if (obj.getColone() == j && obj.getLigne() == i) {
+                                    print(obj);//si c un objet
+                                    break;
+                                }
+                            }
+                        case "e","c","S" ://pour l'instant il y a pas encore le Serpent(e) et le Scorpion(c)
+                            for (Animal ani : li_a) {
+                                if (ani.getColone()==j && ani.getLigne()==i){
+                                    print(ani);//si c'est un animal
+                                    break;
+                                }
+                            }
                         default:
                             print("⬛️");
                     }
@@ -131,10 +140,8 @@ public class Ihm {
     }
     public String DemanderFichier() {
         Scanner scanner = new Scanner(System.in);
-        while (true) {
-            println("Inscrivez le chemin d'accée a votre fichier (ex:mappe.txt) :");
-            return scanner.next();
-        }
+        println("Inscrivez le chemin d'accée a votre fichier (ex:mappe.txt) :");
+        return scanner.next();
     }
 
     public int DemanderTheme() {
@@ -225,15 +232,14 @@ public class Ihm {
     }
     public Boolean AfficherChoix(String c){
         print("Sur la case il y a ");
-        if (c.equals("C")){
-            println("un champignon");
-        } else if (c.equals("G")) {
-            println("de la nouriture");
-        } else if (c.equals("E")||c.equals("S")) {
-            println("un animal");
-            return true;
-        } else {
-            println("rien");
+        switch (c) {
+            case "C" -> println("un champignon");
+            case "G" -> println("de la nouriture");
+            case "E", "S" -> {
+                println("un animal");
+                return true;
+            }
+            default -> println("rien");
         }
         println("Se deplacer ? (O/N)");
         Scanner sc = new Scanner(System.in);
@@ -257,7 +263,7 @@ public class Ihm {
         while (true){
             rep= sc.next();
             if (rep.matches("[Oo]")) {
-                int choix_pose = 0;
+                int choix_pose;
                 if (p.getLi_nouriture().contains("C") && p.getLi_nouriture().contains("G")) {
                     Scanner scanner = new Scanner(System.in);
                     while (true) {

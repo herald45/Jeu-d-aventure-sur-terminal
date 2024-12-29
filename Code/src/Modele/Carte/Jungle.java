@@ -1,10 +1,9 @@
 package Modele.Carte;
-import Vue.Ihm;
 
 import java.util.Random;
 
 public class Jungle implements CarteFactory {
-    private final String[] cocotierEtRocher = {"A","B"};
+    private final String[] cocotierEtRocher = {"J","P"};
     private final String[] nourriture = {"G","C"};
 
     private final int pourcentCOCOTIER_ROCHER = 10;
