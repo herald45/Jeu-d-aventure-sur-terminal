@@ -12,9 +12,13 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        int i = 0;
+
         Ihm ihm=new Ihm();
         Controleur controleur=new Controleur(ihm);
         controleur.jouerPartie();
+
+
 
     }
 }
