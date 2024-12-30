@@ -48,8 +48,10 @@ public class Ihm {
 
     public void afficherCarte(Carte c, List<Animal> li_a,List<Objet> li_o){
         String caseCarte;
+        boolean afficher;
         for (int i = 0; i <c.getNbLignes(); i++){
             for (int j = 0; j <c.getNbColonnes(); j++){
+                afficher=true;
                 caseCarte=c.getCase(i,j);
                 if (c.getTheme().equals("F")){
                     switch (caseCarte) {
@@ -65,24 +67,23 @@ public class Ihm {
                         case "C" :
                             System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+"C"+ANSI_RESET);
                             break;
-                        case "A","B" :
+                        default:
                             for (Objet obj : li_o) {
                                 if (obj.getColone() == j && obj.getLigne() == i) {
                                     print(obj);//si c un objet
-                                    break;
+                                    afficher=false;
                                 }
                             }
-                            break;
-                        case "R","H","E" ://pour l'instant il y a pas encore le renard et le hibou
                             for (Animal ani : li_a) {
                                 if (ani.getColone()==j && ani.getLigne()==i){
                                     print(ani);//si c'est un animal
-                                    break;
+                                    afficher=false;
                                 }
                             }
-                            break;
-                        default:
-                            print(ANSI_GREEN_BACKGROUND+caseCarte+ANSI_RESET);
+                            if (afficher){
+                                print(ANSI_GREEN_BACKGROUND+caseCarte+ANSI_RESET);
+                            }
+
                     }
 
                 }else {
@@ -99,22 +100,23 @@ public class Ihm {
                         case "M" :
                             System.out.print("🍄");//champinon hallucinogène
                             break;
-                        case "J","P" :
+                        default:
                             for (Objet obj : li_o) {
                                 if (obj.getColone() == j && obj.getLigne() == i) {
                                     print(obj);//si c un objet
-                                    break;
+                                    afficher=false;
                                 }
                             }
-                        case "e","c","S" ://pour l'instant il y a pas encore le Serpent(e) et le Scorpion(c)
                             for (Animal ani : li_a) {
                                 if (ani.getColone()==j && ani.getLigne()==i){
                                     print(ani);//si c'est un animal
-                                    break;
+                                    afficher=false;
                                 }
                             }
-                        default:
-                            print("⬛️");
+                            if (afficher){
+                                print("⬛️");
+                            }
+
                     }
                 }
             }
