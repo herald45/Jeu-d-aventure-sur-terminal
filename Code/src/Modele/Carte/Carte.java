@@ -67,9 +67,15 @@ public class Carte {
     }
 
     public void deplacer(int ligne, int colone , int i, int j ,String c){
-        map.get(ligne).set(colone," ");
+        if (map.get(ligne).get(colone) == c){
+            map.get(ligne).set(colone," ");
+        }
         map.get(i).set(j,c);
 
+    }
+
+    public void seCacher(int ligne, int colone){
+        map.get(ligne).set(colone," ");
     }
 
     public String getTheme() {

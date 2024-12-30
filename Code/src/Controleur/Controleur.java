@@ -79,7 +79,7 @@ public class Controleur {
         int nCpt=1;
         while (!Fin){
             for (Animal animal : liA) {
-                animal.JouerUnTour(carte);
+                animal.JouerUnTour(carte, (ArrayList<Objet>) liO);
             }
             Ihm.println("Tour "+nCpt);
             ihm.afficherCarte(carte,liA,liO);

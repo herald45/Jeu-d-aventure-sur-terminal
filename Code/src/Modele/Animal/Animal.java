@@ -1,6 +1,9 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
+import Modele.Environement.Objet;
+
+import java.util.ArrayList;
 
 public class Animal {
 
@@ -10,6 +13,8 @@ public class Animal {
     protected int ligne;
     protected int colone;
     protected String type;
+    protected Boolean cacher=false;
+    protected int peur=0;
 
     // Constructeur de l'Animal
     public Animal(int ligne, int colone, String t) {
@@ -26,11 +31,11 @@ public class Animal {
     }
 
     // Méthode pour jouer un tour
-    public void JouerUnTour(Carte c) {
+    public void JouerUnTour(Carte c,ArrayList<Objet> lio) {
         if (etat instanceof EtatEcureuil) {
-            ((EtatEcureuil) etat).JouerUnTour(ligne, colone, c);
+            ((EtatEcureuil) etat).JouerUnTour(ligne, colone, c,lio);
         } else if (etat instanceof EtatSinge) {
-            ((EtatSinge) etat).JouerUnTour(ligne, colone, c);
+            ((EtatSinge) etat).JouerUnTour(ligne, colone, c,lio);
         }
     }
 
@@ -76,5 +81,19 @@ public class Animal {
         return "";
     }
 
+    public Boolean getCacher() {
+        return cacher;
+    }
 
+    public void setCacher(Boolean cacher) {
+        this.cacher = cacher;
+    }
+
+    public int getPeur() {
+        return peur;
+    }
+
+    public void setPeur(int peur) {
+        this.peur = peur;
+    }
 }

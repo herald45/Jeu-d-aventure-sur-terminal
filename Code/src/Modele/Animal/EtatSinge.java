@@ -1,6 +1,9 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
+import Modele.Environement.Objet;
+
+import java.util.ArrayList;
 
 public abstract class EtatSinge {
 
@@ -11,7 +14,7 @@ public abstract class EtatSinge {
     }
 
 
-    public abstract void JouerUnTour(int ligne, int colone, Carte c);
+    public abstract void JouerUnTour(int ligne, int colone, Carte c, ArrayList<Objet> lio);
     public abstract void TaperSinge(int ligne, int colone, Carte c);
 
     @Override
