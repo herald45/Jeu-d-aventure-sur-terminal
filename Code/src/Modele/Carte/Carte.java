@@ -78,6 +78,10 @@ public class Carte {
         map.get(ligne).set(colone," ");
     }
 
+    public void supprimer(int ligne, int colone){
+        map.get(ligne).set(colone," ");
+    }
+
     public String getTheme() {
         return theme;
     }
