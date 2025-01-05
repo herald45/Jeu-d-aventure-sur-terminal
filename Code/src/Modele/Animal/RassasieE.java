@@ -68,7 +68,7 @@ public class RassasieE extends EtatEcureuil {
 
         animal.setNbjour(animal.getNbjour() - 1);
         if (animal.getNbjour() < 1) {
-            animal.setEtat(new AffameE(animal));
+            animal.setEtat(AffameE.getInstance(animal));
         }
 
     }

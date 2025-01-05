@@ -16,6 +16,13 @@ public class RassasieS extends EtatSinge {
     protected ArrayList<int[]> arbre;
     protected ArrayList<int[]> buisson;
     protected ArrayList<int[]> vide;
+    private static RassasieS instance;
+
+    public static  RassasieS getInstance(Animal animal){
+        if (instance == null)
+            instance = new RassasieS(animal);
+        return instance;
+    }
 
     public RassasieS(Animal animal) {
         super(animal);

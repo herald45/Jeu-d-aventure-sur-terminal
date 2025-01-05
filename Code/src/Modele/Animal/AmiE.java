@@ -12,6 +12,13 @@ public class AmiE extends EtatEcureuil{
     protected ArrayList<int[]> arbre;
     protected ArrayList<int[]> buisson;
     protected ArrayList<int[]> ami;
+    private static AmiE instance;
+
+    public static  AmiE getInstance(Animal animal){
+        if (instance == null)
+            instance = new AmiE(animal);
+        return instance;
+    }
 
     public AmiE(Animal animal) {
         super(animal);
@@ -75,7 +82,7 @@ public class AmiE extends EtatEcureuil{
 
         animal.setNbjour(animal.getNbjour() - 1);
         if (animal.getNbjour() < 1) {
-            animal.setEtat(new AffameE(animal));
+            animal.setEtat(AffameE.getInstance(animal));
         }
 
 
@@ -117,7 +124,7 @@ public class AmiE extends EtatEcureuil{
     @Override
     public void TaperEcureuil(int ligne, int colone, Carte c) {
         if (animal.getNbjour() < 1) {
-            animal.setEtat(new AffameE(animal));
+            animal.setEtat(AffameE.getInstance(animal));
         }
         else{
             animal.setEtat(new RassasieE(animal));
