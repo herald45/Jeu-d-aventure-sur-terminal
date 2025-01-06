@@ -1,7 +1,6 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Vue.Ihm;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class PocheE extends EtatEcureuil{
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Objet> lio) {
+    public void JouerUnTour(int ligne, int colone, Carte c) {
         if (nb < 1){
             pers = coord(c);
             int[] coord = pers.get(0);
@@ -69,6 +68,6 @@ public class PocheE extends EtatEcureuil{
 
     @Override
     public String toString() {
-        return "";
+        return " ";
     }
 }

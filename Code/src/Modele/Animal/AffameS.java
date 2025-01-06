@@ -1,7 +1,6 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Vue.Ihm;
 
 import java.util.ArrayList;
@@ -23,20 +22,14 @@ public class AffameS extends EtatSinge {
 
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Objet> lio) {
+    public void JouerUnTour(int ligne, int colone, Carte c) {
 
         if (animal.getPeur()>0){
             animal.setPeur(animal.getPeur()-1);
             return ;
         }
 
-        if (animal.getCacher()){
-            for (Objet obj : lio) {
-                if (obj.getLigne()== ligne && obj.getColone()== colone){
-                    obj.seDetatcher();
-                }
-            }
-        }
+
 
         vide = new ArrayList<>();
         champigion = new ArrayList<>();
@@ -99,14 +92,9 @@ public class AffameS extends EtatSinge {
         }
         else if (!(arbre.isEmpty())) {
             int[] element = arbre.get(0);
-            c.seCacher(ligne, colone);
+            c.seCacher(animal);
             animal.ligne = element[0];
             animal.colone = element[1];
-            for (Objet obj : lio) {
-                if (obj.getLigne() == element[0] && obj.getColone() == element[1]) {
-                    obj.seCacher(animal);
-                }
-            }
         }
         else if (!(vide.isEmpty())) {
             int nombreAleatoire = (int) (Math.random() * vide.size());
@@ -155,7 +143,7 @@ public class AffameS extends EtatSinge {
                 }
             }
         }
-        if (danger){
+        if (!danger){
             return new ArrayList<>();
         }
         else{
@@ -176,7 +164,11 @@ public class AffameS extends EtatSinge {
 
     @Override
     public String toString() {
-        return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
+        if (danger) {
+            return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
+        }else {
+            return ANSI_YELLOW_BACKGROUND+"🐒"+ANSI_RESET;
+        }
     }
 
 }

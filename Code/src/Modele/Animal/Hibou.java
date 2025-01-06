@@ -1,9 +1,10 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 
 import java.util.ArrayList;
+
+import static Vue.Ihm.*;
 
 public class Hibou extends Predateur{
     protected ArrayList<int[]> ecu;
@@ -15,35 +16,16 @@ public class Hibou extends Predateur{
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c, ArrayList<Animal> lia , ArrayList<Objet> lio) {
+    public void JouerUnTour(Carte c) {
         if (repos > 0) {
             repos = 0;
         }else{
             ecu = EcuAdj(ligne, colone, c);
             if (!(ecu.isEmpty())) {
                 int[] element = ecu.get(0);
-                buisson = buissonAdj(element[0], element[1], c);
-                if (!(buisson.isEmpty())) {
-                    int[] coord = buisson.get(0);
-                    for (Animal anim : lia) {
-                        if (anim.getLigne() == element[0] && anim.getColone() == element[1]) {
-                            anim.setPeur(3);
-                            c.seCacher(element[0], element[1]);
-                            anim.ligne = coord[0];
-                            anim.colone = coord[1];
-
-                            for (Objet obj : lio) {
-                                if (obj.getLigne() == coord[0] && obj.getColone() == coord[1]) {
-                                    obj.seCacher(anim);
-                                }
-                            }
-
-                        }
-                    }
-                } else {
-                    c.supprimer(element[0], element[1]);
-                    repos = 1;
-                }
+                println("le Hibou a manger un ecurueil");
+                c.supprimer(element[0], element[1]);
+                repos = 1;
             } else {
                 sedeplacer(ligne, colone, c, 0);
             }
@@ -102,4 +84,8 @@ public class Hibou extends Predateur{
         }
     }
 
+    @Override
+    public String toString() {
+        return ANSI_PURPLE_BACKGROUND+ANSI_WHITE+"H"+ANSI_RESET;
+    }
 }

@@ -1,9 +1,11 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
+import Vue.Ihm;
 
 import java.util.ArrayList;
+
+import static Vue.Ihm.*;
 
 public class Animal {
 
@@ -27,15 +29,17 @@ public class Animal {
             this.etat = new AffameE(this);  // L'écureuil commence avec un état "RassasieE"
         } else if (type.equals("S")) {
             this.etat = new AffameS(this);  // Le singe commence avec un état "RassasieS"
+        }else {
+            etat=null;
         }
     }
 
     // Méthode pour jouer un tour
-    public void JouerUnTour(Carte c,ArrayList<Objet> lio) {
+    public void JouerUnTour(Carte c) {
         if (etat instanceof EtatEcureuil) {
-            ((EtatEcureuil) etat).JouerUnTour(ligne, colone, c,lio);
+            ((EtatEcureuil) etat).JouerUnTour(ligne, colone, c);
         } else if (etat instanceof EtatSinge) {
-            ((EtatSinge) etat).JouerUnTour(ligne, colone, c,lio);
+            ((EtatSinge) etat).JouerUnTour(ligne, colone, c);
         }
     }
 
@@ -45,6 +49,8 @@ public class Animal {
             ((EtatEcureuil) etat).TaperEcureuil(ligne, colone, c);
         } else if (etat instanceof EtatSinge) {
             ((EtatSinge) etat).TaperSinge(ligne, colone, c);
+        }else {
+            Ihm.println("grrrr");//on vient de taper un predateur
         }
     }
 
@@ -73,6 +79,13 @@ public class Animal {
 
     @Override
     public String toString() {
+        if (cacher){
+            if (etat instanceof EtatEcureuil) {
+                return (ANSI_CYAN_BACKGROUND+"E"+ANSI_RESET);
+            } else if (etat instanceof EtatSinge) {
+                return "🙈";
+            }
+        }
         if (etat instanceof EtatEcureuil) {
             return ((EtatEcureuil) etat).toString();
         } else if (etat instanceof EtatSinge) {
@@ -95,5 +108,9 @@ public class Animal {
 
     public void setPeur(int peur) {
         this.peur = peur;
+    }
+
+    public String getType() {
+        return type;
     }
 }

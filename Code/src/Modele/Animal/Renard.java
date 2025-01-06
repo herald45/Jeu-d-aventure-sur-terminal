@@ -1,9 +1,10 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 
 import java.util.ArrayList;
+
+import static Vue.Ihm.*;
 
 public class Renard extends Predateur {
     protected ArrayList<int[]> ecu;
@@ -16,39 +17,21 @@ public class Renard extends Predateur {
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Animal> lia,ArrayList<Objet> lio) {
+    public void JouerUnTour(Carte c) {
+        vide = new ArrayList<>();
         ecu = EcuAdj(ligne, colone, c);
         if (!(ecu.isEmpty())) {
             int[] element = ecu.get(0);
-            arbre = arbreAdj(element[0], element[1], c);
-            if (!(arbre.isEmpty())) {
-                int[] coord = arbre.get(0);
-                for (Animal anim : lia) {
-                    if (anim.getLigne() == element[0] && anim.getColone() == element[1]) {
-                        anim.setPeur(3);
-                        c.seCacher(element[0], element[1]);
-                        anim.ligne = coord[0];
-                        anim.colone = coord[1];
+            println("le Ranard t'as manger");
+            c.deplacer(ligne, colone, element[0], element[1], "R");
 
-                        for (Objet obj : lio) {
-                            if (obj.getLigne()== coord[0] && obj.getColone()== coord[1]){
-                                obj.seCacher(anim);
-                            }
-                        }
-
-                    }
-                }
-
-            } else {
-                c.supprimer(element[0], element[1]);
-            }
         } else {
-            vide = new ArrayList<>();
+            println("il n'y a pas d'ecu");
             for (int i = (ligne - 1); i < (ligne + 2); i++) {
                 for (int j = (colone - 1); j < (colone + 2); j++) {
-                    if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes() && (i != this.ligne || j != this.colone)) {
-
-                        if (c.getLigne(i).get(j) == " ") {
+                    if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes() && (i!= ligne || j!= colone)) {
+                        if (c.getLigne(i).get(j).equals(" ")) {
+                            println("il y a des case vide autour de moi");
                             vide.add(new int[]{i, j});
                         }
                     }
@@ -57,6 +40,7 @@ public class Renard extends Predateur {
             if (!(vide.isEmpty())) {
                 int nombreAleatoire = (int) (Math.random() * vide.size());
                 int[] element = vide.get(nombreAleatoire);
+                println("je me deplace");
                 c.deplacer(ligne, colone, element[0], element[1], "R");
                 this.ligne = element[0];
                 this.colone = element[1];
@@ -93,6 +77,9 @@ public class Renard extends Predateur {
         return arbre;
     }
 
-
+    @Override
+    public String toString() {
+        return ANSI_ORANGE_BACKGROUND+ANSI_BLACK+"R"+ANSI_RESET;
+    }
 }
 

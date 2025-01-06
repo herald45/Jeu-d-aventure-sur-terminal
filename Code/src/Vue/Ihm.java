@@ -2,7 +2,6 @@ package Vue;
 
 import Modele.Animal.Animal;
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Modele.Pair;
 import Modele.Personnage;
 
@@ -31,6 +30,10 @@ public class Ihm {
     public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+    public static final String ANSI_ORANGE_BACKGROUND = "\u001B[48;5;208m";
+    public static final String ANSI_GREY_BACKGROUND = "\u001B[48;5;245m";
+
+
 
     public Ihm() {
     }
@@ -46,44 +49,44 @@ public class Ihm {
         System.out.print(s);
     }
 
-    public void afficherCarte(Carte c, List<Animal> li_a,List<Objet> li_o){
+    public void afficherCarte(Carte c, List<Animal> li_a){
         String caseCarte;
         boolean afficher;
         for (int i = 0; i <c.getNbLignes(); i++){
             for (int j = 0; j <c.getNbColonnes(); j++){
-                afficher=true;
                 caseCarte=c.getCase(i,j);
+                afficher=true;
                 if (c.getTheme().equals("F")){
-                    switch (caseCarte) {
-                        case "@" :
-                            System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+caseCarte+ANSI_RESET);
-                            break;
-                        case "M" :
-                            System.out.print(ANSI_CYAN_BACKGROUND+ANSI_YELLOW+"C"+ANSI_RESET);
-                            break;
-                        case "G" :
-                            System.out.print(ANSI_RED_BACKGROUND+ANSI_YELLOW+caseCarte+ANSI_RESET);
-                            break;
-                        case "C" :
-                            System.out.print(ANSI_WHITE_BACKGROUND+ANSI_PURPLE+"C"+ANSI_RESET);
-                            break;
-                        default:
-                            for (Objet obj : li_o) {
-                                if (obj.getColone() == j && obj.getLigne() == i) {
-                                    print(obj);//si c un objet
-                                    afficher=false;
-                                }
-                            }
-                            for (Animal ani : li_a) {
-                                if (ani.getColone()==j && ani.getLigne()==i){
-                                    print(ani);//si c'est un animal
-                                    afficher=false;
-                                }
-                            }
-                            if (afficher){
-                                print(ANSI_GREEN_BACKGROUND+caseCarte+ANSI_RESET);
-                            }
+                    for (Animal ani : li_a) {
+                        if (ani.getColone()==j && ani.getLigne()==i){
+                            print(ani);//si c'est un animal
+                            afficher=false;
+                        }
+                    }
+                    if (afficher) {
+                        switch (caseCarte) {
+                            case "@":
+                                System.out.print(ANSI_WHITE_BACKGROUND + ANSI_PURPLE + caseCarte + ANSI_RESET);
+                                break;
+                            case "M":
+                                System.out.print(ANSI_GREY_BACKGROUND + ANSI_YELLOW + "C" + ANSI_RESET);
+                                break;
+                            case "G":
+                                System.out.print(ANSI_RED_BACKGROUND + ANSI_YELLOW + caseCarte + ANSI_RESET);
+                                break;
+                            case "C":
+                                System.out.print(ANSI_WHITE_BACKGROUND + ANSI_PURPLE + "C" + ANSI_RESET);
+                                break;
+                            case "A":
+                                print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"A"+ANSI_RESET);
+                                break;
+                            case "B":
+                                System.out.print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"B"+ANSI_RESET);
+                                break;
+                            default:
+                                print(ANSI_GREEN_BACKGROUND + caseCarte + ANSI_RESET);
 
+                        }
                     }
 
                 }else {
@@ -101,12 +104,6 @@ public class Ihm {
                             System.out.print("🍄");//champinon hallucinogène
                             break;
                         default:
-                            for (Objet obj : li_o) {
-                                if (obj.getColone() == j && obj.getLigne() == i) {
-                                    print(obj);//si c un objet
-                                    afficher=false;
-                                }
-                            }
                             for (Animal ani : li_a) {
                                 if (ani.getColone()==j && ani.getLigne()==i){
                                     print(ani);//si c'est un animal

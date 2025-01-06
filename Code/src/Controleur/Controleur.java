@@ -1,8 +1,9 @@
 package Controleur;
 
 import Modele.Animal.Animal;
+import Modele.Animal.Hibou;
+import Modele.Animal.Renard;
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Modele.Pair;
 import Modele.Personnage;
 import Vue.Ihm;
@@ -21,7 +22,6 @@ public class Controleur {
     public void jouerPartie() {
         Carte carte;
         List<Animal> li_A=new ArrayList<>();
-        List<Objet> li_O=new ArrayList<>();
         if(ihm.DemanderCreationCarte()==1){
             Pair<Integer,Integer> taille=ihm.DemanderTailleCarte();
             if (ihm.DemanderTheme()==1){
@@ -37,12 +37,11 @@ public class Controleur {
                 for (int j = 0; j <carte.getNbColonnes(); j++){
                     if (carte.getCase(i,j).equals("E")){
                         li_A.add(new Animal(i,j,"E"));
-                    }else if (carte.getCase(i,j).equals("A")){
-                        li_O.add(new Objet.Arbre(i,j));
-                    }else if (carte.getCase(i,j).equals("B")){
-                        li_O.add(new Objet.Buisson(i,j));
-                    }//todo ajouter renard et hibou
-
+                    }else if (carte.getCase(i,j).equals("R")){
+                        li_A.add(new Renard(i,"R",j));
+                    } else if (carte.getCase(i,j).equals("H")) {
+                        li_A.add(new Hibou(i,"H",j));
+                    }
                 }
             }
         }else {
@@ -51,12 +50,6 @@ public class Controleur {
                     if (carte.getCase(i,j).equals("S")){
                         li_A.add(new Animal(i,j,"S"));
                     }
-                    if (carte.getCase(i,j).equals("J")){
-                        li_O.add(new Objet.Palemier(i,j));
-                    }
-                    if (carte.getCase(i,j).equals("P")){
-                        li_O.add(new Objet.Rocher(i,j));
-                    }//todo ajouter serpent  et scorpion
                 }
             }
         }
@@ -69,20 +62,20 @@ public class Controleur {
             }
         }
         Ihm.println("voici la carte :");
-        ihm.afficherCarte(carte,li_A,li_O);
+        ihm.afficherCarte(carte,li_A);
         Ihm.println("----------- Debut Partie ---------");
-        lancerPartie(carte,li_A,li_O,P);
+        lancerPartie(carte,li_A,P);
     }
 
-    private void lancerPartie(Carte carte, List<Animal> liA,List<Objet> liO, Personnage P) {
+    private void lancerPartie(Carte carte, List<Animal> liA, Personnage P) {
         boolean Fin=false;
         int nCpt=1;
         while (!Fin){
             for (Animal animal : liA) {
-                animal.JouerUnTour(carte, (ArrayList<Objet>) liO);
+                animal.JouerUnTour(carte);
             }
             Ihm.println("Tour "+nCpt);
-            ihm.afficherCarte(carte,liA,liO);
+            ihm.afficherCarte(carte,liA);
             boolean continu=true;
             Pair<Pair<Integer,Integer>,String> choixCoup;
             Pair<Integer,Integer> coorDuCoup;
@@ -91,11 +84,12 @@ public class Controleur {
                 coorDuCoup=choixCoup.getFirst();
                 continu=ihm.AfficherChoix(choixCoup.getSecond());
                 if (continu){
-                    if (choixCoup.getSecond().equals("C")||choixCoup.getSecond().equals("G")){
+                    if (choixCoup.getSecond().equals("C")||choixCoup.getSecond().equals("G")||choixCoup.getSecond().equals("M")){
                         P.getLi_nouriture().add(choixCoup.getSecond());
                         carte.deplacer(P.getLigne(),P.getColone(),coorDuCoup.getFirst(),coorDuCoup.getSecond(),"@");
                         P.setLigne(coorDuCoup.getFirst());P.setColone(coorDuCoup.getSecond());
-                    } else if (choixCoup.getSecond().equals("E")||choixCoup.getSecond().equals("S")) {
+                    } else if (choixCoup.getSecond().equals("E")||choixCoup.getSecond().equals("S")||choixCoup.getSecond().equals("R")||choixCoup.getSecond().equals("H")) {
+                        //on estime qu'il est possible de fraper un predateur mais ca fait rien
                         if (ihm.demanderTaper()){
                             for (Animal ani :liA){
                                 if (ani.getLigne()==coorDuCoup.getFirst() && ani.getColone()==coorDuCoup.getSecond()){

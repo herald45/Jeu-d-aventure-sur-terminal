@@ -3,10 +3,11 @@ package Modele.Animal;
 
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Vue.Ihm;
 
 import java.util.ArrayList;
+
+import static Vue.Ihm.*;
 
 public class RassasieE extends EtatEcureuil {
 
@@ -21,19 +22,15 @@ public class RassasieE extends EtatEcureuil {
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Objet> lio) {
+    public void JouerUnTour(int ligne, int colone, Carte c) {
 
         if (animal.getPeur()>0){
             animal.setPeur(animal.getPeur()-1);
-            return ;
-        }
-
-        if (animal.getCacher()){
-            for (Objet obj : lio) {
-                if (obj.getLigne()== ligne && obj.getColone()== colone){
-                    obj.seDetatcher();
-                }
+            animal.setNbjour(animal.getNbjour() - 1);
+            if (animal.getNbjour() < 1) {
+                animal.setEtat(new AffameE(animal));
             }
+            return ;
         }
 
         vide = new ArrayList<>();
@@ -49,26 +46,26 @@ public class RassasieE extends EtatEcureuil {
 
 
         }
-
-
-        arbre = isDanger(ligne, colone, c);
-        if (!(arbre.isEmpty())){
-                int[] element = arbre.get(0);
-                c.seCacher(ligne,colone);
-                animal.ligne= element[0];
-                animal.colone= element[1];
-        }
-        else if (!(vide.isEmpty())) {
-            int nombreAleatoire = (int) (Math.random() * vide.size());
+        int nombreAleatoire = (int) (Math.random() * vide.size());
+        if (!animal.getCacher()&& !(vide.isEmpty())){
             int[] element = vide.get(nombreAleatoire);
-            c.deplacer(ligne,colone ,element[0],element[1] ,"E");
             animal.ligne= element[0];
             animal.colone= element[1];
-        }
-
-        animal.setNbjour(animal.getNbjour() - 1);
-        if (animal.getNbjour() < 1) {
-            animal.setEtat(new AffameE(animal));
+            c.seDetatcher(animal);
+        }else {
+            arbre = isDanger(ligne, colone, c);
+            if (!(arbre.isEmpty())){
+                int[] element = arbre.get(0);
+                c.seCacher(animal);
+                animal.ligne= element[0];
+                animal.colone= element[1];
+            }
+            else if (!(vide.isEmpty())) {
+                int[] element = vide.get(nombreAleatoire);
+                c.deplacer(ligne,colone ,element[0],element[1] ,"E");
+                animal.ligne= element[0];
+                animal.colone= element[1];
+            }
         }
 
     }
@@ -76,7 +73,7 @@ public class RassasieE extends EtatEcureuil {
     public ArrayList<int[]> isDanger(int ligne, int colone, Carte c) {
         arbre = new ArrayList<>();
         buisson = new ArrayList<>();
-        boolean danger = false;
+        danger = false;
         for (int i = (ligne - 4); i < (ligne + 5); i++) {
             for (int j = (colone - 4); j < (colone + 5); j++) {
                 if (i >= 0 && i < c.getNbLignes()  && j >= 0 && j < c.getNbColonnes()){
@@ -92,7 +89,7 @@ public class RassasieE extends EtatEcureuil {
                 }
             }
         }
-        if (danger){
+        if (!danger){
             return new ArrayList<>();
         }
         else{
@@ -106,11 +103,15 @@ public class RassasieE extends EtatEcureuil {
     }
 
     public void TaperEcureuil(int ligne, int colone, Carte c) {
-        /** doit rien faire mais jsp quooi mettre **/
+        Ihm.println("aiie l'ecureill a mal");
     }
 
     public String toString() {
-        return ANSI_YELLOW_BACKGROUND+ANSI_BLUE+"E"+ANSI_RESET;
+        if (danger){
+            return ANSI_RED_BACKGROUND+ANSI_BLACK+"E"+ANSI_RESET;
+        }else {
+            return ANSI_YELLOW_BACKGROUND+ANSI_BLUE+"E"+ANSI_RESET;
+        }
     }
 
 }

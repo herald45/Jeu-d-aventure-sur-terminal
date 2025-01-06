@@ -1,5 +1,6 @@
 package Modele.Carte;
 
+import Modele.Animal.Animal;
 import Vue.Ihm;
 
 import java.util.ArrayList;
@@ -67,15 +68,21 @@ public class Carte {
     }
 
     public void deplacer(int ligne, int colone , int i, int j ,String c){
-        if (map.get(ligne).get(colone) == c){
-            map.get(ligne).set(colone," ");
-        }
+        map.get(ligne).set(colone," ");
         map.get(i).set(j,c);
 
     }
 
-    public void seCacher(int ligne, int colone){
-        map.get(ligne).set(colone," ");
+    public void seCacher(Animal ani){
+        map.get(ani.getLigne()).set(ani.getColone()," ");
+        ani.setCacher(true);
+        ani.setPeur(3);
+
+    }
+    public void seDetatcher(Animal ani){
+
+        map.get(ani.getLigne()).set(ani.getColone(), ani.getType());
+        ani.setCacher(false);
     }
 
     public void supprimer(int ligne, int colone){

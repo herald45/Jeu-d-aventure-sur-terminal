@@ -4,7 +4,6 @@ package Modele.Animal;
 
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Vue.Ihm;
 
 import java.util.ArrayList;
@@ -22,19 +21,11 @@ public class RassasieS extends EtatSinge {
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Objet> lio) {
+    public void JouerUnTour(int ligne, int colone, Carte c) {
 
         if (animal.getPeur()>0){
             animal.setPeur(animal.getPeur()-1);
             return ;
-        }
-
-        if (animal.getCacher()){
-            for (Objet obj : lio) {
-                if (obj.getLigne()== ligne && obj.getColone()== colone){
-                    obj.seDetatcher();
-                }
-            }
         }
 
         vide = new ArrayList<>();
@@ -55,7 +46,7 @@ public class RassasieS extends EtatSinge {
         arbre = isDanger(ligne, colone, c);
         if (!(arbre.isEmpty())){
             int[] element = arbre.get(0);
-            c.seCacher(ligne,colone);
+            c.seCacher(animal);
             animal.ligne= element[0];
             animal.colone= element[1];
         }
