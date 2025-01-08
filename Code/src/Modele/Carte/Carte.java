@@ -73,15 +73,33 @@ public class Carte {
 
     }
 
-    public void seCacher(Animal ani){
+    public void seCacher(Animal ani,int ligne ,int colone){
+        if (map.get(ligne).get(colone).equals("A")){
+            map.get(ani.getLigne()).set(ani.getColone(), "x");
+        } else if (map.get(ligne).get(colone).equals("B")) {
+            map.get(ani.getLigne()).set(ani.getColone(), "y");
+        } else if (map.get(ligne).get(colone).equals("J")) {
+            map.get(ani.getLigne()).set(ani.getColone(), "z");
+        } else if (map.get(ligne).get(colone).equals("P")) {
+            map.get(ani.getLigne()).set(ani.getColone(), "w");
+        }
         map.get(ani.getLigne()).set(ani.getColone()," ");
         ani.setCacher(true);
         ani.setPeur(3);
 
     }
-    public void seDetatcher(Animal ani){
+    public void seDetatcher(Animal ani,int ligne,int colone){
+        if ( map.get(ani.getLigne()).get(ani.getColone()).equals("w")){
+            map.get(ani.getLigne()).set(ani.getColone(),"P");
+        } else if (map.get(ani.getLigne()).get(ani.getColone()).equals("x")) {
+            map.get(ani.getLigne()).set(ani.getColone(),"A");
+        } else if (map.get(ani.getLigne()).get(ani.getColone()).equals("y")) {
+            map.get(ani.getLigne()).set(ani.getColone(),"B");
+        } else if (map.get(ani.getLigne()).get(ani.getColone()).equals("z")) {
+            map.get(ani.getLigne()).set(ani.getColone(),"J");
+        }
 
-        map.get(ani.getLigne()).set(ani.getColone(), ani.getType());
+        map.get(ligne).set(colone, ani.getType());
         ani.setCacher(false);
     }
 

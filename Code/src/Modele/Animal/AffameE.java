@@ -77,14 +77,14 @@ public class AffameE extends EtatEcureuil {
         int nombreAleatoire = (int) (Math.random() * vide.size());
         if (animal.getCacher()&& !(vide.isEmpty())){
             int[] element = vide.get(nombreAleatoire);
+            c.seDetatcher(animal,element[0],element[1]);
             animal.ligne= element[0];
             animal.colone= element[1];
-            c.seDetatcher(animal);
         }else {
             arbre = isDanger(ligne, colone, c);
             if (!(arbre.isEmpty())){
                 int[] element = arbre.get(0);
-                c.seCacher(animal);
+                c.seCacher(animal,element[0],element[1]);
                 animal.ligne= element[0];
                 animal.colone= element[1];
                 return;
@@ -156,6 +156,7 @@ public class AffameE extends EtatEcureuil {
     public void TaperEcureuil(int ligne, int colone, Carte c) {
         Ihm.println("aiiiie ");
     }
+
 
     @Override
     public String toString() {

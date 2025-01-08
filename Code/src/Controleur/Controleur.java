@@ -9,6 +9,7 @@ import Modele.Personnage;
 import Vue.Ihm;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Controleur {
@@ -39,6 +40,7 @@ public class Controleur {
                         li_A.add(new Animal(i,j,"E"));
                     }else if (carte.getCase(i,j).equals("R")){
                         li_A.add(new Renard(i,"R",j));
+                        System.out.println("i :" + i + " j :" + j); //todo
                     } else if (carte.getCase(i,j).equals("H")) {
                         li_A.add(new Hibou(i,"H",j));
                     }
@@ -71,9 +73,16 @@ public class Controleur {
         boolean Fin=false;
         int nCpt=1;
         while (!Fin){
-            for (Animal animal : liA) {
-                animal.JouerUnTour(carte);
+            Iterator<Animal> iterator = liA.iterator();
+            while (iterator.hasNext()) {
+                Animal animal = iterator.next();
+                if (!animal.getVie()) {
+                    iterator.remove(); // Suppression sécurisée via l'itérateur
+                } else {
+                    animal.JouerUnTour(carte, liA);
+                }
             }
+
             Ihm.println("Tour "+nCpt);
             ihm.afficherCarte(carte,liA);
             boolean continu=true;

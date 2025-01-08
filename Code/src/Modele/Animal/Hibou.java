@@ -3,6 +3,7 @@ package Modele.Animal;
 import Modele.Carte.Carte;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static Vue.Ihm.*;
 
@@ -11,12 +12,16 @@ public class Hibou extends Predateur{
     protected ArrayList<int[]> buisson;
     protected ArrayList<int[]> vide;
     public int repos =0;
+
     public Hibou(int ligne, String type, int colone) {
+
         super(ligne, type, colone);
+        this.ligne = ligne;
+        this.colone = colone;
     }
 
     @Override
-    public void JouerUnTour(Carte c) {
+    public void JouerUnTour(Carte c, List<Animal> lia) {
         if (repos > 0) {
             repos = 0;
         }else{
@@ -24,7 +29,19 @@ public class Hibou extends Predateur{
             if (!(ecu.isEmpty())) {
                 int[] element = ecu.get(0);
                 println("le Hibou a manger un ecurueil");
-                c.supprimer(element[0], element[1]);
+
+                for (Animal animal : lia) {
+                    if (animal.getLigne() == element[0] && animal.getColone() == element[1]) {
+                        animal.setVie(false);
+                    }
+                }
+
+                    c.deplacer(ligne, colone, element[0], element[1], "R");
+                    ligne = element[0];
+                    colone = element[1];
+
+
+
                 repos = 1;
             } else {
                 sedeplacer(ligne, colone, c, 0);
@@ -61,18 +78,20 @@ public class Hibou extends Predateur{
     }
 
     public void sedeplacer(int ligne, int colone, Carte c ,int nb){
+        print("ddddddddddd");
         vide = new ArrayList<>();
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes()  && j >= 0 && j < c.getNbColonnes() && (i!= this.ligne || j!= this.colone)) {
 
-                    if (c.getLigne(i).get(j) == " ") {
+                    if (c.getLigne(i).get(j).equals(" ")) {
                         vide.add(new int[]{i, j});
                     }
                 }
             }
         }
         if (!(vide.isEmpty())) {
+            print("uheufuehruheufeuhfefuefhefhuefh");
             int nombreAleatoire = (int) (Math.random() * vide.size());
             int[] element = vide.get(nombreAleatoire);
             c.deplacer(ligne,colone ,element[0],element[1] ,"E");
