@@ -9,15 +9,13 @@ import static Vue.Ihm.*;
 
 public class Hibou extends Predateur{
     protected ArrayList<int[]> ecu;
-    protected ArrayList<int[]> buisson;
     protected ArrayList<int[]> vide;
-    public int repos =0;
+    private int repos;
 
     public Hibou(int ligne, String type, int colone) {
 
         super(ligne, type, colone);
-        this.ligne = ligne;
-        this.colone = colone;
+        repos =0;
     }
 
     @Override
@@ -28,19 +26,19 @@ public class Hibou extends Predateur{
             ecu = EcuAdj(ligne, colone, c);
             if (!(ecu.isEmpty())) {
                 int[] element = ecu.get(0);
-                println("le Hibou a manger un ecurueil");
 
                 for (Animal animal : lia) {
-                    if (animal.getLigne() == element[0] && animal.getColone() == element[1]) {
-                        animal.setVie(false);
+                    if (animal.getLigne() == element[0] && animal.getColone() == element[1] && c.getLigne(animal.getLigne()).get(animal.getColone()).equals("E")) {
+                        if (!animal.sefaitattaquer(c)){
+                            print("Le hibou a manger ecu");
+                            animal.setVie(false);
+                        }
                     }
                 }
 
-                    c.deplacer(ligne, colone, element[0], element[1], "R");
-                    ligne = element[0];
-                    colone = element[1];
-
-
+                c.deplacer(ligne, colone, element[0], element[1], "H");
+                ligne = element[0];
+                colone = element[1];
 
                 repos = 1;
             } else {
@@ -63,19 +61,6 @@ public class Hibou extends Predateur{
         return ecu;
     }
 
-    public ArrayList<int[]> buissonAdj(int ligne, int colone, Carte c) {
-        buisson = new ArrayList<>();
-        for (int i = (ligne - 1); i < (ligne + 2); i++) {
-            for (int j = (colone - 1); j < (colone + 2); j++) {
-                if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes()) {
-                    if (c.getLigne(i).get(j).equals("B")) {
-                        buisson.add(new int[]{i, j});
-                    }
-                }
-            }
-        }
-        return buisson;
-    }
 
     public void sedeplacer(int ligne, int colone, Carte c ,int nb){
 
@@ -93,7 +78,7 @@ public class Hibou extends Predateur{
         if (!(vide.isEmpty())) {
             int nombreAleatoire = (int) (Math.random() * vide.size());
             int[] element = vide.get(nombreAleatoire);
-            c.deplacer(ligne,colone ,element[0],element[1] ,"E");
+            c.deplacer(ligne,colone ,element[0],element[1] ,"H");
             this.ligne= element[0];
             this.colone= element[1];
             if (nb < 1){

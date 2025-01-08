@@ -100,27 +100,13 @@ public class AffameE extends EtatEcureuil {
 
     public ArrayList<int[]> isDanger(int ligne, int colone, Carte c) {
         arbre = new ArrayList<>();
-        ArrayList<int[]> nouveauVide = new ArrayList<>();
+        buisson = new ArrayList<>();
         danger = false;
         for (int i = (ligne - 4); i < (ligne + 5); i++) {
             for (int j = (colone - 4); j < (colone + 5); j++) {
                 if (i >= 0 && i < c.getNbLignes()  && j >= 0 && j < c.getNbColonnes()){
                     if(c.getLigne(i).get(j).equals("R") || c.getLigne(i).get(j).equals("H")){
                         danger = true;
-                    }
-                    for (int x = -1; x <= 1; x++) {
-                        for (int y = -1; y <= 1; y++) {
-                            if (!(x == 0 && y == 0)) {
-                                int adjX = i + x;
-                                int adjY = j + y;
-
-                                // Vérifier si la case adjacente est dans les limites
-                                if (adjX >= 0 && adjX < c.getNbLignes() && adjY >= 0 && adjY < c.getNbColonnes()) {
-                                    // Ajouter cette case à la liste des cases sûres
-                                    nouveauVide.add(new int[]{adjX, adjY});
-                                }
-                            }
-                        }
                     }
                 }
             }
@@ -139,9 +125,8 @@ public class AffameE extends EtatEcureuil {
             return new ArrayList<>();
         }
         else{
-            if (arbre.isEmpty()){
-                vide=nouveauVide;
-
+            if (!danger){
+                return new ArrayList<>();
             }
             return arbre;
         }

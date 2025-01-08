@@ -25,7 +25,7 @@ public class Renard extends Predateur {
             int[] element = ecu.get(0);
 
             for (Animal animal : lia) {
-                if (animal.getLigne() == element[0] && animal.getColone() == element[1]) {
+                if (animal.getLigne() == element[0] && animal.getColone() == element[1] && c.getLigne(animal.getLigne()).get(animal.getColone()).equals("E")) {
                     if (!animal.sefaitattaquer(c)){
                         print("renard a manger ecu");
                         animal.setVie(false);
