@@ -1,7 +1,6 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 
 import java.util.ArrayList;
 
@@ -15,7 +14,8 @@ public class Scorpion extends Predateur{
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c, ArrayList<Animal> lia, ArrayList<Objet> lio) {
+    public void JouerUnTour(Carte c) {
 
     }
+
 }

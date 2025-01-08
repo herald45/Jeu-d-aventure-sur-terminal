@@ -1,8 +1,6 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
-import Vue.Ihm;
 
 import java.util.ArrayList;
 
@@ -24,19 +22,11 @@ public class AmiS extends EtatSinge{
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Objet> lio) {
+    public void JouerUnTour(int ligne, int colone, Carte c) {
 
         if (animal.getPeur()>0){
             animal.setPeur(animal.getPeur()-1);
             return ;
-        }
-
-        if (animal.getCacher()){
-            for (Objet obj : lio) {
-                if (obj.getLigne()== ligne && obj.getColone()== colone){
-                    obj.seDetatcher();
-                }
-            }
         }
 
         vide = new ArrayList<>();
@@ -78,6 +68,8 @@ public class AmiS extends EtatSinge{
     }
 
     public String toString() {
-        return ANSI_BLUE_BACKGROUND+"🐒"+ANSI_RESET;
+        if (danger) {
+            return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
+        }return ANSI_BLUE_BACKGROUND+"🐒"+ANSI_RESET;
     }
 }

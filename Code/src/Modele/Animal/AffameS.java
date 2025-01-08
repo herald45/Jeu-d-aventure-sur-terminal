@@ -1,7 +1,6 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Vue.Ihm;
 
 import java.util.ArrayList;
@@ -30,20 +29,14 @@ public class AffameS extends EtatSinge {
 
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Objet> lio) {
+    public void JouerUnTour(int ligne, int colone, Carte c) {
 
         if (animal.getPeur()>0){
             animal.setPeur(animal.getPeur()-1);
             return ;
         }
 
-        if (animal.getCacher()){
-            for (Objet obj : lio) {
-                if (obj.getLigne()== ligne && obj.getColone()== colone){
-                    obj.seDetatcher();
-                }
-            }
-        }
+
 
         vide = new ArrayList<>();
         champigion = new ArrayList<>();
@@ -106,14 +99,9 @@ public class AffameS extends EtatSinge {
         }
         else if (!(arbre.isEmpty())) {
             int[] element = arbre.get(0);
-            c.seCacher(ligne, colone);
+            c.seCacher(animal);
             animal.ligne = element[0];
             animal.colone = element[1];
-            for (Objet obj : lio) {
-                if (obj.getLigne() == element[0] && obj.getColone() == element[1]) {
-                    obj.seCacher(animal);
-                }
-            }
         }
         else if (!(vide.isEmpty())) {
             int nombreAleatoire = (int) (Math.random() * vide.size());
@@ -153,19 +141,26 @@ public class AffameS extends EtatSinge {
                     if(c.getLigne(i).get(j).equals("R") || c.getLigne(i).get(j).equals("H")){
                         danger = true;
                     }
-                    else if(c.getLigne(i).get(j).equals("A")){
-                        arbre.add(new int[]{i, j, 0});
-                    }
-                    else if(c.getLigne(i).get(j).equals("B")){
-                        buisson.add(new int[]{i, j, 1});
-                    }
                 }
             }
         }
-        if (danger){
+        if (!danger){
             return new ArrayList<>();
         }
         else{
+
+            for (int i = (ligne - 1); i < (ligne + 2); i++) {
+                for (int j = (colone - 1); j < (colone + 2); j++) {
+                    if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes()) {
+                        if (Objects.equals(c.getLigne(i).get(j), "J")) {
+                            arbre.add(new int[]{i, j});
+                        } else if (Objects.equals(c.getLigne(i).get(j), "P")) {
+                            buisson.add(new int[]{i, j});
+                        }
+                    }
+                }
+            }
+
             if (arbre.isEmpty()){
                 return buisson;
             }
@@ -183,7 +178,11 @@ public class AffameS extends EtatSinge {
 
     @Override
     public String toString() {
-        return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
+        if (danger) {
+            return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
+        }else {
+            return ANSI_YELLOW_BACKGROUND+"🐒"+ANSI_RESET;
+        }
     }
 
 }

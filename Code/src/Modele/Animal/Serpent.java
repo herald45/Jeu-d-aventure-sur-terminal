@@ -1,7 +1,6 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 
 import java.util.ArrayList;
 
@@ -13,6 +12,11 @@ public class Serpent extends Predateur{
 
     public Serpent(int ligne, String type, int colone) {
         super(ligne, type, colone);
+    }
+
+    @Override
+    public void JouerUnTour(Carte c) {
+
     }
 
     @Override

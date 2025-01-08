@@ -1,7 +1,6 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 import Vue.Ihm;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class JunkieS extends EtatSinge{
     }
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c, ArrayList<Objet> lio) {
+    public void JouerUnTour(int ligne, int colone, Carte c) {
         vide = new ArrayList<>();
 
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
@@ -59,6 +58,8 @@ public class JunkieS extends EtatSinge{
 
     @Override
     public String toString() {
-        return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
+        if (danger) {
+            return ANSI_RED_BACKGROUND+"🐒"+ANSI_RESET;
+        }return ANSI_PURPLE_BACKGROUND+"🐒"+ANSI_RESET;
     }
 }

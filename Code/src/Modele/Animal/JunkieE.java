@@ -1,9 +1,9 @@
 package Modele.Animal;
 
 import Modele.Carte.Carte;
-import Modele.Environement.Objet;
 
 import java.util.ArrayList;
+import static Vue.Ihm.*;
 
 public class JunkieE extends EtatEcureuil {
 
@@ -22,9 +22,7 @@ public class JunkieE extends EtatEcureuil {
 
 
     @Override
-    public void JouerUnTour(int ligne, int colone, Carte c,ArrayList<Objet> lio) {
-
-
+    public void JouerUnTour(int ligne, int colone, Carte c) {
 
         sedeplacer(ligne, colone, c ,0);
 
@@ -64,7 +62,9 @@ public class JunkieE extends EtatEcureuil {
     }
 
     public String toString() {
-        return ANSI_YELLOW_BACKGROUND+ANSI_RED+"E"+ANSI_RESET;
+        if (danger){
+            return ANSI_RED_BACKGROUND+ANSI_BLACK+"E"+ANSI_RESET;
+        }return ANSI_YELLOW_BACKGROUND+ANSI_RED+"E"+ANSI_RESET;
     }
 
 }
