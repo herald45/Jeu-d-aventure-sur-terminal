@@ -4,11 +4,13 @@ import java.util.Random;
 
 public class Jungle implements CarteFactory {
     private final String[] cocotierEtRocher = {"J","P"};
-    private final String[] nourriture = {"G","C"};
+    private final String[] nourriture = {"G","C","M"};
+    private final String[] predateurs = {"R","H"};
 
     private final int pourcentCOCOTIER_ROCHER = 10;
     private final int pourcentNOURRITURE = 3;
     private final int pourcentSINGE = 1;
+    private final int pourcentPREDATEUR = 1;
 
 
     public void remplirMap(Carte carte, String lettre, int quantite, Random r){
@@ -32,6 +34,7 @@ public class Jungle implements CarteFactory {
         int nbCaseCR = casesTotal * pourcentCOCOTIER_ROCHER/100;
         int nbCaseN = casesTotal * pourcentNOURRITURE/100;
         int nbCaseS = casesTotal * pourcentSINGE/100;
+        int nbCaseP = casesTotal * pourcentPREDATEUR/100;
 
         carte.setTheme("J");
 
@@ -52,6 +55,10 @@ public class Jungle implements CarteFactory {
 
         for (int i=0;i<nbCaseN;i++){
             remplirMap(carte, nourriture[r.nextInt(nourriture.length)],1, r);
+        }
+
+        for (int i=0;i<nbCaseP;i++){
+            remplirMap(carte, predateurs[r.nextInt(predateurs.length)],1, r);
         }
         remplirMap(carte, "S", nbCaseS, r);
         remplirMap(carte,"@",1,r);

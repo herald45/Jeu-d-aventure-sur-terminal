@@ -95,10 +95,10 @@ public class Ihm {
                             System.out.print("🍌");
                             break;
                         case "C" :
-                            System.out.print("🍄‍🟫");//champinon normaux
+                            System.out.print("🍄‍");//champinon normaux
                             break;
                         case "M" :
-                            System.out.print("🍄");//champinon hallucinogène
+                            System.out.print("🥦");//champinon hallucinogène
                             break;
                         default:
                             for (Objet obj : li_o) {

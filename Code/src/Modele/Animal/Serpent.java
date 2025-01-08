@@ -57,7 +57,7 @@ public class Serpent extends Predateur{
                 if (!(vide.isEmpty())) {
                     int nombreAleatoire = (int) (Math.random() * vide.size());
                     int[] element = vide.get(nombreAleatoire);
-                    c.deplacer(ligne, colone, element[0], element[1], "Serpent");
+                    c.deplacer(ligne, colone, element[0], element[1], "SE");
                     this.ligne = element[0];
                     this.colone = element[1];
 

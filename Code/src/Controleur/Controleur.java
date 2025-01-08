@@ -57,6 +57,9 @@ public class Controleur {
                     if (carte.getCase(i,j).equals("P")){
                         li_O.add(new Objet.Rocher(i,j));
                     }//todo ajouter serpent  et scorpion
+                    if (carte.getCase(i,j).equals("SE")){
+                        li_O.add(new Objet.Rocher(i,j));
+                    }
                 }
             }
         }
