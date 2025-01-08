@@ -78,7 +78,7 @@ public class Hibou extends Predateur{
     }
 
     public void sedeplacer(int ligne, int colone, Carte c ,int nb){
-        print("ddddddddddd");
+
         vide = new ArrayList<>();
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
             for (int j = (colone - 1); j < (colone + 2); j++) {
@@ -91,7 +91,6 @@ public class Hibou extends Predateur{
             }
         }
         if (!(vide.isEmpty())) {
-            print("uheufuehruheufeuhfefuefhefhuefh");
             int nombreAleatoire = (int) (Math.random() * vide.size());
             int[] element = vide.get(nombreAleatoire);
             c.deplacer(ligne,colone ,element[0],element[1] ,"E");

@@ -24,8 +24,6 @@ public class Renard extends Predateur {
         if (!(ecu.isEmpty())) {
             int[] element = ecu.get(0);
 
-
-
             for (Animal animal : lia) {
                 if (animal.getLigne() == element[0] && animal.getColone() == element[1]) {
                     if (!animal.sefaitattaquer(c)){
@@ -34,12 +32,9 @@ public class Renard extends Predateur {
                     }
                 }
             }
-
-                c.deplacer(ligne, colone, element[0], element[1], "R");
-                ligne = element[0];
-                colone = element[1];
-
-
+            c.deplacer(ligne, colone, element[0], element[1], "R");
+            ligne = element[0];
+            colone = element[1];
 
         } else {
             for (int i = (ligne - 1); i < (ligne + 2); i++) {

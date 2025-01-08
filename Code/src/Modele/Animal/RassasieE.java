@@ -6,6 +6,7 @@ import Modele.Carte.Carte;
 import Vue.Ihm;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Vue.Ihm.*;
 
@@ -38,7 +39,7 @@ public class RassasieE extends EtatEcureuil {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes()  && j >= 0 && j < c.getNbColonnes() && (i!= animal.ligne || j!= animal.colone)) {
 
-                    if (c.getLigne(i).get(j) == " ") {
+                    if (c.getLigne(i).get(j).equals(" ")) {
                         vide.add(new int[]{i, j});
                     }
                 }
@@ -72,7 +73,7 @@ public class RassasieE extends EtatEcureuil {
 
     public ArrayList<int[]> isDanger(int ligne, int colone, Carte c) {
         arbre = new ArrayList<>();
-        buisson = new ArrayList<>();
+        ArrayList<int[]> nouveauVide = new ArrayList<>();
         danger = false;
         for (int i = (ligne - 4); i < (ligne + 5); i++) {
             for (int j = (colone - 4); j < (colone + 5); j++) {
@@ -80,25 +81,42 @@ public class RassasieE extends EtatEcureuil {
                     if(c.getLigne(i).get(j).equals("R") || c.getLigne(i).get(j).equals("H")){
                         danger = true;
                     }
-                    else if(c.getLigne(i).get(j).equals("A")){
-                        arbre.add(new int[]{i, j, 0});
-                    }
-                    else if(c.getLigne(i).get(j).equals("B")){
-                        buisson.add(new int[]{i, j, 1});
+                    for (int x = -1; x <= 1; x++) {
+                        for (int y = -1; y <= 1; y++) {
+                            if (!(x == 0 && y == 0)) {
+                                int adjX = i + x;
+                                int adjY = j + y;
+
+                                // Vérifier si la case adjacente est dans les limites
+                                if (adjX >= 0 && adjX < c.getNbLignes() && adjY >= 0 && adjY < c.getNbColonnes()) {
+                                    // Ajouter cette case à la liste des cases sûres
+                                    nouveauVide.add(new int[]{adjX, adjY});
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
+
+        for (int i = (ligne - 1); i < (ligne + 2); i++) {
+            for (int j = (colone - 1); j < (colone + 2); j++) {
+                if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes()) {
+                    if (Objects.equals(c.getLigne(i).get(j), "A")|| Objects.equals(c.getLigne(i).get(j), "B") ) {
+                        arbre.add(new int[]{i, j});
+                    }
+                }
+            }}
+
         if (!danger){
             return new ArrayList<>();
         }
         else{
             if (arbre.isEmpty()){
-                return buisson;
+                vide=nouveauVide;
+
             }
-            else {
-                return arbre;
-            }
+            return arbre;
         }
     }
 

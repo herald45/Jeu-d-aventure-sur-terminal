@@ -40,7 +40,6 @@ public class Controleur {
                         li_A.add(new Animal(i,j,"E"));
                     }else if (carte.getCase(i,j).equals("R")){
                         li_A.add(new Renard(i,"R",j));
-                        System.out.println("i :" + i + " j :" + j); //todo
                     } else if (carte.getCase(i,j).equals("H")) {
                         li_A.add(new Hibou(i,"H",j));
                     }

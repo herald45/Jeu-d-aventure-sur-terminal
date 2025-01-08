@@ -137,7 +137,6 @@ public class Animal {
                 }
             }
         }
-
         if (!(arbre.isEmpty())){
             int[] element = arbre.get(0);
             c.seCacher(this,element[0],element[1]);

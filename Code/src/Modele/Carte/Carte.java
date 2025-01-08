@@ -75,13 +75,13 @@ public class Carte {
 
     public void seCacher(Animal ani,int ligne ,int colone){
         if (map.get(ligne).get(colone).equals("A")){
-            map.get(ani.getLigne()).set(ani.getColone(), "x");
+            map.get(ligne).set(colone, "x");
         } else if (map.get(ligne).get(colone).equals("B")) {
-            map.get(ani.getLigne()).set(ani.getColone(), "y");
+            map.get(ligne).set(colone, "y");
         } else if (map.get(ligne).get(colone).equals("J")) {
-            map.get(ani.getLigne()).set(ani.getColone(), "z");
+            map.get(ligne).set(colone, "z");
         } else if (map.get(ligne).get(colone).equals("P")) {
-            map.get(ani.getLigne()).set(ani.getColone(), "w");
+            map.get(ligne).set(colone, "w");
         }
         map.get(ani.getLigne()).set(ani.getColone()," ");
         ani.setCacher(true);
@@ -89,6 +89,8 @@ public class Carte {
 
     }
     public void seDetatcher(Animal ani,int ligne,int colone){
+        map.get(ligne).set(colone, ani.getType());
+
         if ( map.get(ani.getLigne()).get(ani.getColone()).equals("w")){
             map.get(ani.getLigne()).set(ani.getColone(),"P");
         } else if (map.get(ani.getLigne()).get(ani.getColone()).equals("x")) {
@@ -99,7 +101,6 @@ public class Carte {
             map.get(ani.getLigne()).set(ani.getColone(),"J");
         }
 
-        map.get(ligne).set(colone, ani.getType());
         ani.setCacher(false);
     }
 
