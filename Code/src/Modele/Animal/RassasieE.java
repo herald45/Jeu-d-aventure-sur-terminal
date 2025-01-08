@@ -47,7 +47,7 @@ public class RassasieE extends EtatEcureuil {
 
         }
         int nombreAleatoire = (int) (Math.random() * vide.size());
-        if (!animal.getCacher()&& !(vide.isEmpty())){
+        if (animal.getCacher()&& !(vide.isEmpty())){
             int[] element = vide.get(nombreAleatoire);
             animal.ligne= element[0];
             animal.colone= element[1];

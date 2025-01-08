@@ -4,6 +4,7 @@ package Modele.Animal;
 import Modele.Carte.Carte;
 import Vue.Ihm;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Vue.Ihm.*;
 
@@ -62,12 +63,15 @@ public class AffameE extends EtatEcureuil {
             animal.setNbjour(5);
             if (element[2] == 1){
                 animal.setEtat(new JunkieE(animal));
+                return;
             }
             else if(JoueurAdj(element[0],element[1],c)){
                 animal.setEtat(new AmiE(animal));
+                return;
             }
             else{
                 animal.setEtat(new RassasieE(animal));
+                return;
             }
         }
         int nombreAleatoire = (int) (Math.random() * vide.size());
@@ -104,15 +108,22 @@ public class AffameE extends EtatEcureuil {
                     if(c.getLigne(i).get(j).equals("R") || c.getLigne(i).get(j).equals("H")){
                         danger = true;
                     }
-                    else if(c.getLigne(i).get(j).equals("A")){
-                        arbre.add(new int[]{i, j, 0});
-                    }
-                    else if(c.getLigne(i).get(j).equals("B")){
-                        buisson.add(new int[]{i, j, 1});
+                }
+            }
+        }
+
+        for (int i = (ligne - 1); i < (ligne + 2); i++) {
+            for (int j = (colone - 1); j < (colone + 2); j++) {
+                if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes()) {
+                    if (Objects.equals(c.getLigne(i).get(j), "A")) {
+                        arbre.add(new int[]{i, j});
+                    } else if (Objects.equals(c.getLigne(i).get(j), "B")) {
+                        buisson.add(new int[]{i, j});
                     }
                 }
             }
         }
+
         if (!danger){
             return new ArrayList<>();
         }

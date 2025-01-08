@@ -134,12 +134,6 @@ public class AffameS extends EtatSinge {
                     if(c.getLigne(i).get(j).equals("R") || c.getLigne(i).get(j).equals("H")){
                         danger = true;
                     }
-                    else if(c.getLigne(i).get(j).equals("A")){
-                        arbre.add(new int[]{i, j, 0});
-                    }
-                    else if(c.getLigne(i).get(j).equals("B")){
-                        buisson.add(new int[]{i, j, 1});
-                    }
                 }
             }
         }
@@ -147,6 +141,19 @@ public class AffameS extends EtatSinge {
             return new ArrayList<>();
         }
         else{
+
+            for (int i = (ligne - 1); i < (ligne + 2); i++) {
+                for (int j = (colone - 1); j < (colone + 2); j++) {
+                    if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes()) {
+                        if (Objects.equals(c.getLigne(i).get(j), "J")) {
+                            arbre.add(new int[]{i, j});
+                        } else if (Objects.equals(c.getLigne(i).get(j), "P")) {
+                            buisson.add(new int[]{i, j});
+                        }
+                    }
+                }
+            }
+
             if (arbre.isEmpty()){
                 return buisson;
             }
