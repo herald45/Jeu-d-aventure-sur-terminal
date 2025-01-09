@@ -111,7 +111,7 @@ public class RassasieS extends EtatSinge {
 
     @Override
     public String toString() {
-        return ANSI_YELLOW_BACKGROUND+"🐒"+ANSI_RESET;
+        return ANSI_BLUE_BACKGROUND+"🐒"+ANSI_RESET;
     }
 
 }

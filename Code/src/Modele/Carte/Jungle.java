@@ -7,7 +7,7 @@ public class Jungle implements CarteFactory {
     private final String[] nourriture = {"G","C","M"};
     private final String[] predateurs = {"R","H"};
 
-    private final int pourcentCOCOTIER_ROCHER = 10;
+    private final int pourcentCOCOTIER_ROCHER = 12;
     private final int pourcentNOURRITURE = 3;
     private final int pourcentSINGE = 1;
     private final int pourcentPREDATEUR = 1;
@@ -49,6 +49,8 @@ public class Jungle implements CarteFactory {
                 }
             }
         }
+        remplirMap(carte, "S", nbCaseS, r);
+        remplirMap(carte,"@",1,r);
         for (int i=0;i<nbCaseCR;i++){
             remplirMap(carte, cocotierEtRocher[r.nextInt(cocotierEtRocher.length)], 1, r);
         }
@@ -60,8 +62,7 @@ public class Jungle implements CarteFactory {
         for (int i=0;i<nbCaseP;i++){
             remplirMap(carte, predateurs[r.nextInt(predateurs.length)],1, r);
         }
-        remplirMap(carte, "S", nbCaseS, r);
-        remplirMap(carte,"@",1,r);
+
 
 
     }

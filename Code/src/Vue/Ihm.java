@@ -56,13 +56,13 @@ public class Ihm {
             for (int j = 0; j <c.getNbColonnes(); j++){
                 caseCarte=c.getCase(i,j);
                 afficher=true;
-                if (c.getTheme().equals("F")){
-                    for (Animal ani : li_a) {
-                        if (ani.getColone()==j && ani.getLigne()==i){
-                            print(ani);//si c'est un animal
-                            afficher=false;
-                        }
+                for (Animal ani : li_a) {
+                    if (ani.getColone()==j && ani.getLigne()==i){
+                        print(ani);//si c'est un animal
+                        afficher=false;
                     }
+                }
+                if (c.getTheme().equals("F")){
                     if (afficher) {
                         switch (caseCarte) {
                             case "@":
@@ -103,16 +103,18 @@ public class Ihm {
                         case "M" :
                             System.out.print("🥦");//champinon hallucinogène
                             break;
+                        case "J":
+                            print("🌴");
+                            break;
+                        case "P":
+                            System.out.print("🪨");
+                            break;
+                        case "R":
+                            System.out.print("🐍");
+                        case "H":
+                            System.out.print("🦂");
                         default:
-                            for (Animal ani : li_a) {
-                                if (ani.getColone()==j && ani.getLigne()==i){
-                                    print(ani);//si c'est un animal
-                                    afficher=false;
-                                }
-                            }
-                            if (afficher){
-                                print("⬛️");
-                            }
+                            print("⬛️");
 
                     }
                 }
