@@ -11,11 +11,6 @@ public class JunkieS extends EtatSinge{
     protected ArrayList<int[]> vide;
     private static JunkieS instance;
 
-    public static  JunkieS getInstance(Animal animal){
-        if (instance == null)
-            instance = new JunkieS(animal);
-        return instance;
-    }
 
     public JunkieS(Animal animal) {
         super(animal);

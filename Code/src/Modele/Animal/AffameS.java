@@ -16,11 +16,7 @@ public class AffameS extends EtatSinge {
     protected ArrayList<int[]> buisson;
     private static AffameS instance;
 
-    public static  AffameS getInstance(Animal animal){
-        if (instance == null)
-            instance = new AffameS(animal);
-        return instance;
-    }
+
 
 
     public AffameS(Animal animal) {

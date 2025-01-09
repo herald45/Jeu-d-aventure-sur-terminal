@@ -109,7 +109,6 @@ public class Ihm {
                             case "P":
                                 System.out.print("🪨");
                                 break;
-
                             default:
                                 print("⬛️");
 
@@ -241,7 +240,7 @@ public class Ihm {
     public Boolean AfficherChoix(String c){
         print("Sur la case il y a ");
         switch (c) {
-            case "C" -> println("un champignon");
+            case "C","M" -> println("un champignon");
             case "G" -> println("de la nouriture");
             case "E", "S" -> {
                 println("un animal");
@@ -277,6 +276,58 @@ public class Ihm {
                     while (true) {
                         println("1- Poser nouriture");
                         println("2- Poser Champignon");
+                        println("3- Poser Champignon vénéneux (M)");
+                        if (!scanner.hasNextInt()) {
+                            System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                            scanner.next();
+                        } else {
+                            choix_pose = scanner.nextInt();
+                            if (choix_pose >= 1 && choix_pose <= 3) {
+                                break;
+                            } else {
+                                System.out.println("🙅‍ Choix invalide. Veuillez sélectionner 1, 2 ou 3.");
+                            }
+                        }
+                    }
+                } else if (p.getLi_nouriture().contains("C") && p.getLi_nouriture().contains("G")) {
+                    Scanner scanner = new Scanner(System.in);
+                    while (true) {
+                        println("1- Poser nouriture");
+                        println("2- Poser Champignon");
+                        if (!scanner.hasNextInt()) {
+                            System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                            scanner.next();
+                        } else {
+                            choix_pose = scanner.nextInt();
+                            if (choix_pose >= 1 && choix_pose <= 3) {
+                                break;
+                            } else {
+                                System.out.println("🙅‍ Choix invalide. Veuillez sélectionner 1, 2 ou 3.");
+                            }
+                        }
+                    }
+                } else if (p.getLi_nouriture().contains("C") && p.getLi_nouriture().contains("M")) {
+                    Scanner scanner = new Scanner(System.in);
+                    while (true) {
+                        println("1- Poser Champignon");
+                        println("2- Poser Champignon vénéneux (M)");
+                        if (!scanner.hasNextInt()) {
+                            System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                            scanner.next();
+                        } else {
+                            choix_pose = scanner.nextInt();
+                            if (choix_pose >= 1 && choix_pose <= 3) {
+                                break;
+                            } else {
+                                System.out.println("🙅‍ Choix invalide. Veuillez sélectionner 1, 2 ou 3.");
+                            }
+                        }
+                    }
+                    choix_pose++;
+                } else if (p.getLi_nouriture().contains("C") &&  p.getLi_nouriture().contains("M")) {
+                    Scanner scanner = new Scanner(System.in);
+                    while (true) {
+                        println("1- Poser nouriture");
                         println("3- Poser Champignon vénéneux (M)");
                         if (!scanner.hasNextInt()) {
                             System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");

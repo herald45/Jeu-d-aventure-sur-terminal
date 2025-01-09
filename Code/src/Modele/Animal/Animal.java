@@ -29,7 +29,7 @@ public class Animal {
 
         // Initialisation de l'état en fonction du type de l'animal
         if (type.equals("E")) {
-            this.etat = AffameE.getInstance(this);  // L'écureuil commence avec un état "RassasieE"
+            this.etat = new AffameE(this);  // L'écureuil commence avec un état "RassasieE"
         } else if (type.equals("S")) {
             this.etat = new AffameS(this);  // Le singe commence avec un état "RassasieS"
         }else {

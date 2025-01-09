@@ -27,7 +27,7 @@ public class PocheE extends EtatEcureuil{
             animal.ligne=element[0];
             animal.colone=element[1];
             c.deplacer(ligne,colone,element[0],element[1],"E");
-            animal.setEtat(AffameE.getInstance(animal));
+            animal.setEtat(new AffameE(animal));
         }
         else{
             nb = nb-1;

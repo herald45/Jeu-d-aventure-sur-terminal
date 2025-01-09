@@ -128,6 +128,9 @@ public class Controleur {
                     }else if (choixPose==2){
                         P.getLi_nouriture().remove("C");
                         carte.setCase(coorDuCoup.getFirst(),coorDuCoup.getSecond(),"C");
+                    }else if (choixPose==3) {
+                        P.getLi_nouriture().remove("M");
+                        carte.setCase(coorDuCoup.getFirst(), coorDuCoup.getSecond(), "M");
                     }else {
                         continu=true;
                     }

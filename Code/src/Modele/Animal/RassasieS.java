@@ -15,13 +15,8 @@ public class RassasieS extends EtatSinge {
     protected ArrayList<int[]> arbre;
     protected ArrayList<int[]> buisson;
     protected ArrayList<int[]> vide;
-    private static RassasieS instance;
 
-    public static  RassasieS getInstance(Animal animal){
-        if (instance == null)
-            instance = new RassasieS(animal);
-        return instance;
-    }
+
 
     public RassasieS(Animal animal) {
         super(animal);
@@ -41,7 +36,7 @@ public class RassasieS extends EtatSinge {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes() && (i!= animal.ligne || j!= animal.colone)) {
 
-                    if (c.getLigne(i).get(j) == " ") {
+                    if (c.getLigne(i).get(j).equals(" ")) {
                         vide.add(new int[]{i, j});
                     }
                 }
