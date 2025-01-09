@@ -98,7 +98,7 @@ public class Ihm {
                             System.out.print("🍌");
                             break;
                         case "C" :
-                            System.out.print("🍄‍🟫");//champinon normaux
+                            System.out.print("🍄‍");//champinon normaux
                             break;
                         case "M" :
                             System.out.print("🍄");//champinon hallucinogène
@@ -192,18 +192,26 @@ public class Ihm {
         int nCpt2=1;
         for (int i = (p.getLigne() - 1); i < (p.getLigne() + 2); i++) {
             for (int j = (p.getColone() - 1); j < (p.getColone() + 2); j++) {
-                if (c.getCase(i,j).equals("A") || c.getCase(i,j).equals("B")) {
-                    print("❌");
-                } else if (c.getCase(i,j).equals("@")) {
-                    print("🙋");
-                } else {
-                    print(nCpt + " ");
-                    liChoix.putIfAbsent(nCpt, new Pair<>(new Pair<>(i,j),c.getCase(i,j)));
-                    nCpt++;
-                }
+                if (i>=0 && j>=0 && i<= c.getNbLignes()-1 && j<= c.getNbColonnes()-1){
+                    if (c.getCase(i, j).equals("A") || c.getCase(i, j).equals("B")) {
+                        print("❌");
+                    } else if (c.getCase(i, j).equals("@")) {
+                        print("🙋");
+                    } else {
+                        print(nCpt + " ");
+                        liChoix.putIfAbsent(nCpt, new Pair<>(new Pair<>(i, j), c.getCase(i, j)));
+                        nCpt++;
+                    }
                 nCpt2++;
-                if ((nCpt2-1)%3==0){
+                if ((nCpt2 - 1) % 3 == 0) {
                     print("\n");
+                }
+            }else{
+                    print("🧱");
+                    nCpt2++;
+                    if ((nCpt2 - 1) % 3 == 0) {
+                        print("\n");
+                    }
                 }
             }
 

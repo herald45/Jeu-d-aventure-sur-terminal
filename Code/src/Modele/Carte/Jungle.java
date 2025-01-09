@@ -32,6 +32,7 @@ public class Jungle implements CarteFactory {
         int nbCaseCR = casesTotal * pourcentCOCOTIER_ROCHER/100;
         int nbCaseN = casesTotal * pourcentNOURRITURE/100;
         int nbCaseS = casesTotal * pourcentSINGE/100;
+        System.out.println("dedede:" + nbCaseS);
 
         carte.setTheme("J");
 
@@ -53,7 +54,10 @@ public class Jungle implements CarteFactory {
         for (int i=0;i<nbCaseN;i++){
             remplirMap(carte, nourriture[r.nextInt(nourriture.length)],1, r);
         }
+
+
         remplirMap(carte, "S", nbCaseS, r);
+
         remplirMap(carte,"@",1,r);
 
 
