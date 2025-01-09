@@ -8,6 +8,13 @@ import static Vue.Ihm.*;
 public class JunkieE extends EtatEcureuil {
 
     protected ArrayList<int[]> vide ;
+    private static JunkieE instance;
+
+    public static  JunkieE getInstance(Animal animal){
+        if (instance == null)
+            instance = new JunkieE(animal);
+        return instance;
+    }
 
     public JunkieE(Animal animal) {
         super(animal);
@@ -21,7 +28,7 @@ public class JunkieE extends EtatEcureuil {
 
         animal.setNbjour(animal.getNbjour() - 1);
         if (animal.getNbjour() < 1) {
-            animal.setEtat(new AffameE(animal));
+            animal.setEtat(AffameE.getInstance(animal));
         }
 
     }

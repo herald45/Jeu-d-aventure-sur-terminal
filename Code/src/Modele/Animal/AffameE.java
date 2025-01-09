@@ -14,9 +14,17 @@ public class AffameE extends EtatEcureuil {
     protected ArrayList<int[]> vide ;
     protected ArrayList<int[]> arbre;
     protected ArrayList<int[]> buisson;
+    private static AffameE instance;
+
+    public static  AffameE getInstance(Animal animal){
+        if (instance == null)
+            instance = new AffameE(animal);
+        return instance;
+    }
 
 
-    public AffameE(Animal animal) {
+
+    AffameE(Animal animal) {
         super(animal);
     }
 

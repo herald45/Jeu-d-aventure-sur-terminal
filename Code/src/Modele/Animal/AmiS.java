@@ -9,6 +9,13 @@ import static Vue.Ihm.*;
 public class AmiS extends EtatSinge{
 
     protected ArrayList<int[]> vide;
+    private static AmiS instance;
+
+    public static  AmiS getInstance(Animal animal){
+        if (instance == null)
+            instance = new AmiS(animal);
+        return instance;
+    }
 
     public AmiS(Animal animal) {
         super(animal);

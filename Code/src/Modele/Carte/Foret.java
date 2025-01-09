@@ -4,11 +4,13 @@ import java.util.Random;
 public class Foret implements CarteFactory {
 
     private final String[] arbreBuisson = {"A","B"};
-    private final String[] nourriture = {"G","C"};
+    private final String[] nourriture = {"G","C","M"};
+    private final String[] predateurs = {"R","H"};
 
-    private final int pourcentARBRE_BUISSON = 3;
+    private final int pourcentARBRE_BUISSON = 10;
     private final int pourcentNOURRITURE = 2;
     private final int pourcentECUREUIL = 1;
+    private final int pourcentPREDATEUR = 1;
 
 
     public void remplirMap(Carte carte, String lettre, int quantite, Random r){
@@ -32,6 +34,7 @@ public class Foret implements CarteFactory {
         int nbCaseAB = casesTotal * pourcentARBRE_BUISSON /100;
         int nbCaseN = casesTotal * pourcentNOURRITURE/100;
         int nbCaseE = casesTotal * pourcentECUREUIL /100;
+        int nbCaseP = casesTotal * pourcentPREDATEUR/100;
 
         carte.setTheme("F");
 
@@ -47,8 +50,17 @@ public class Foret implements CarteFactory {
             }
         }
 
-        remplirMap(carte, arbreBuisson[r.nextInt(arbreBuisson.length)], nbCaseAB, r);
-        remplirMap(carte, nourriture[r.nextInt(nourriture.length)], nbCaseN, r);
+        for (int i = 0; i<nbCaseAB; i++){
+            remplirMap(carte, arbreBuisson[r.nextInt(arbreBuisson.length)], 1, r);
+        }
+
+        for (int i = 0; i<nbCaseN; i++){
+            remplirMap(carte, nourriture[r.nextInt(nourriture.length)], 1, r);
+        }
+
+        for (int i = 0; i<nbCaseP; i++){
+            remplirMap(carte, predateurs[r.nextInt(predateurs.length)], 1, r);
+        }
         remplirMap(carte, "E", nbCaseE, r);
         remplirMap(carte,"@",1,r);
 
