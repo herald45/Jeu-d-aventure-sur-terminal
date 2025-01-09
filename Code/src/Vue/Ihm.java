@@ -90,32 +90,31 @@ public class Ihm {
                     }
 
                 }else {
-                    switch (caseCarte) {
-                        case "@" :
-                            System.out.print("🧑‍🎄");
-                            break;
-                        case "G" :
-                            System.out.print("🍌");
-                            break;
-                        case "C" :
-                            System.out.print("🍄‍");//champinon normaux
-                            break;
-                        case "M" :
-                            System.out.print("🥦");//champinon hallucinogène
-                            break;
-                        case "J":
-                            print("🌴");
-                            break;
-                        case "P":
-                            System.out.print("🪨");
-                            break;
-                        case "R":
-                            System.out.print("🐍");
-                        case "H":
-                            System.out.print("🦂");
-                        default:
-                            print("⬛️");
+                    if (afficher){
+                        switch (caseCarte) {
+                            case "@":
+                                System.out.print("🧑‍🎄");
+                                break;
+                            case "G":
+                                System.out.print("🍌");
+                                break;
+                            case "C":
+                                System.out.print("🍄‍");//champinon normaux
+                                break;
+                            case "M":
+                                System.out.print("🥦");//champinon hallucinogène
+                                break;
+                            case "J":
+                                print("🌴");
+                                break;
+                            case "P":
+                                System.out.print("🪨");
+                                break;
 
+                            default:
+                                print("⬛️");
+
+                        }
                     }
                 }
             }

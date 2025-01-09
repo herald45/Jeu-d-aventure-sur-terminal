@@ -4,6 +4,8 @@ import Modele.Carte.Carte;
 import Vue.Ihm;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import static Vue.Ihm.*;
 
@@ -17,6 +19,7 @@ public class Animal {
     protected String type;
     protected Boolean cacher=false;
     protected int peur=0;
+    protected boolean vie=true;
 
     // Constructeur de l'Animal
     public Animal(int ligne, int colone, String t) {
@@ -35,7 +38,7 @@ public class Animal {
     }
 
     // Méthode pour jouer un tour
-    public void JouerUnTour(Carte c) {
+    public void JouerUnTour(Carte c, List<Animal> liA) {
         if (etat instanceof EtatEcureuil) {
             ((EtatEcureuil) etat).JouerUnTour(ligne, colone, c);
         } else if (etat instanceof EtatSinge) {
@@ -112,5 +115,35 @@ public class Animal {
 
     public String getType() {
         return type;
+    }
+
+    public boolean getVie() {
+        return vie;
+    }
+
+    public void setVie(boolean vie) {
+        this.vie = vie;
+    }
+
+    public boolean sefaitattaquer(Carte c) {
+        ArrayList<int[]> arbre = new ArrayList<>();
+        for (int i = (ligne - 1); i < (ligne + 2); i++) {
+            for (int j = (colone - 1); j < (colone + 2); j++) {
+                if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes()) {
+                    if (Objects.equals(c.getLigne(i).get(j), "A")) {
+                        arbre.add(new int[]{i, j});
+
+                    }
+                }
+            }
+        }
+        if (!(arbre.isEmpty())){
+            int[] element = arbre.get(0);
+            c.seCacher(this,element[0],element[1]);
+            this.ligne= element[0];
+            this.colone= element[1];
+            return true;
+        }
+        return false;
     }
 }

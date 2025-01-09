@@ -38,7 +38,7 @@ public class RassasieE extends EtatEcureuil {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes()  && j >= 0 && j < c.getNbColonnes() && (i!= animal.ligne || j!= animal.colone)) {
 
-                    if (c.getLigne(i).get(j) == " ") {
+                    if (c.getLigne(i).get(j).equals(" ")) {
                         vide.add(new int[]{i, j});
                     }
                 }
@@ -49,14 +49,14 @@ public class RassasieE extends EtatEcureuil {
         int nombreAleatoire = (int) (Math.random() * vide.size());
         if (animal.getCacher()&& !(vide.isEmpty())){
             int[] element = vide.get(nombreAleatoire);
+            c.seDetatcher(animal,element[0],element[1]);
             animal.ligne= element[0];
             animal.colone= element[1];
-            c.seDetatcher(animal);
         }else {
             arbre = isDanger(ligne, colone, c);
             if (!(arbre.isEmpty())){
                 int[] element = arbre.get(0);
-                c.seCacher(animal);
+                c.seCacher(animal,element[0],element[1]);
                 animal.ligne= element[0];
                 animal.colone= element[1];
             }
@@ -92,14 +92,7 @@ public class RassasieE extends EtatEcureuil {
         if (!danger){
             return new ArrayList<>();
         }
-        else{
-            if (arbre.isEmpty()){
-                return buisson;
-            }
-            else {
-                return arbre;
-            }
-        }
+        return arbre;
     }
 
     public void TaperEcureuil(int ligne, int colone, Carte c) {

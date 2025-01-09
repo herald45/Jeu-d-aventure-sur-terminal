@@ -53,7 +53,7 @@ public class RassasieS extends EtatSinge {
         arbre = isDanger(ligne, colone, c);
         if (!(arbre.isEmpty())){
             int[] element = arbre.get(0);
-            c.seCacher(animal);
+            c.seCacher(animal,element[0],element[1]);
             animal.ligne= element[0];
             animal.colone= element[1];
         }

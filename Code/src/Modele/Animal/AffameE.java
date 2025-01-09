@@ -85,14 +85,14 @@ public class AffameE extends EtatEcureuil {
         int nombreAleatoire = (int) (Math.random() * vide.size());
         if (animal.getCacher()&& !(vide.isEmpty())){
             int[] element = vide.get(nombreAleatoire);
+            c.seDetatcher(animal,element[0],element[1]);
             animal.ligne= element[0];
             animal.colone= element[1];
-            c.seDetatcher(animal);
         }else {
             arbre = isDanger(ligne, colone, c);
             if (!(arbre.isEmpty())){
                 int[] element = arbre.get(0);
-                c.seCacher(animal);
+                c.seCacher(animal,element[0],element[1]);
                 animal.ligne= element[0];
                 animal.colone= element[1];
                 return;
@@ -123,25 +123,20 @@ public class AffameE extends EtatEcureuil {
         for (int i = (ligne - 1); i < (ligne + 2); i++) {
             for (int j = (colone - 1); j < (colone + 2); j++) {
                 if (i >= 0 && i < c.getNbLignes() && j >= 0 && j < c.getNbColonnes()) {
-                    if (Objects.equals(c.getLigne(i).get(j), "A")) {
+                    if (Objects.equals(c.getLigne(i).get(j), "A")|| Objects.equals(c.getLigne(i).get(j), "B") ) {
                         arbre.add(new int[]{i, j});
-                    } else if (Objects.equals(c.getLigne(i).get(j), "B")) {
-                        buisson.add(new int[]{i, j});
                     }
-                }
             }
-        }
+        }}
 
         if (!danger){
             return new ArrayList<>();
         }
         else{
-            if (arbre.isEmpty()){
-                return buisson;
+            if (!danger){
+                return new ArrayList<>();
             }
-            else {
-                return arbre;
-            }
+            return arbre;
         }
     }
 
@@ -164,6 +159,7 @@ public class AffameE extends EtatEcureuil {
     public void TaperEcureuil(int ligne, int colone, Carte c) {
         Ihm.println("aiiiie ");
     }
+
 
     @Override
     public String toString() {

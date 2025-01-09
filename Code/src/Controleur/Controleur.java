@@ -1,14 +1,13 @@
 package Controleur;
 
-import Modele.Animal.Animal;
-import Modele.Animal.Hibou;
-import Modele.Animal.Renard;
+import Modele.Animal.*;
 import Modele.Carte.Carte;
 import Modele.Pair;
 import Modele.Personnage;
 import Vue.Ihm;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Controleur {
@@ -49,6 +48,10 @@ public class Controleur {
                 for (int j = 0; j <carte.getNbColonnes(); j++){
                     if (carte.getCase(i,j).equals("S")){
                         li_A.add(new Animal(i,j,"S"));
+                    }else if (carte.getCase(i,j).equals("R")){
+                        li_A.add(new Serpent(i,"R",j));
+                    } else if (carte.getCase(i,j).equals("H")) {
+                        li_A.add(new Scorpion(i,"H",j));
                     }
                 }
             }
@@ -71,9 +74,16 @@ public class Controleur {
         boolean Fin=false;
         int nCpt=1;
         while (!Fin){
-            for (Animal animal : liA) {
-                animal.JouerUnTour(carte);
+            Iterator<Animal> iterator = liA.iterator();
+            while (iterator.hasNext()) {
+                Animal animal = iterator.next();
+                if (!animal.getVie()) {
+                    iterator.remove(); // Suppression sécurisée via l'itérateur
+                } else {
+                    animal.JouerUnTour(carte, liA);
+                }
             }
+
             Ihm.println("Tour "+nCpt);
             ihm.afficherCarte(carte,liA);
             boolean continu=true;
