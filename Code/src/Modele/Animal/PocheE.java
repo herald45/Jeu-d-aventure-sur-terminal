@@ -5,6 +5,8 @@ import Vue.Ihm;
 
 import java.util.ArrayList;
 
+import static Vue.Ihm.*;
+
 public class PocheE extends EtatEcureuil{
     protected int nb = 3;
     protected ArrayList<int[]> vide ;
@@ -31,6 +33,14 @@ public class PocheE extends EtatEcureuil{
         }
         else{
             nb = nb-1;
+            for (int i = 0; i< c.getNbLignes();i++){
+                for (int j = 0 ; j< c.getNbColonnes();j++){
+                    if (c.getCase(i,j).equals("@")){
+                        animal.ligne = i;
+                        animal.colone = j;
+                    }
+                }
+            }
         }
     }
 
@@ -68,6 +78,6 @@ public class PocheE extends EtatEcureuil{
 
     @Override
     public String toString() {
-        return " ";
+        return (ANSI_WHITE_BACKGROUND + ANSI_PURPLE + "@" + ANSI_RESET);
     }
 }

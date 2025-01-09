@@ -94,6 +94,9 @@ public class Carte {
             map.get(ligne).set(colone, "z");
         } else if (map.get(ligne).get(colone).equals("P")) {
             map.get(ligne).set(colone, "w");
+        }else if (map.get(ligne).get(colone).equals("@")) {
+            map.get(ani.getLigne()).set(ani.getColone()," ");
+            return;
         }
         map.get(ani.getLigne()).set(ani.getColone()," ");
         ani.setCacher(true);

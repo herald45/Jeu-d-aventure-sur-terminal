@@ -30,6 +30,14 @@ public class PocheS extends EtatSinge{
         else{
             nb = nb-1;
             alerte(ligne, colone, c);
+            for (int i = 0; i< c.getNbLignes();i++){
+                for (int j = 0 ; j< c.getNbColonnes();j++){
+                    if (c.getCase(i,j).equals("@")){
+                        animal.ligne = i;
+                        animal.colone = j;
+                    }
+                }
+            }
         }
     }
 
@@ -80,6 +88,6 @@ public class PocheS extends EtatSinge{
 
     @Override
     public String toString() {
-        return " ";
+        return "🧑‍🎄";
     }
 }

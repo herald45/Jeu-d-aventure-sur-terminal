@@ -82,6 +82,9 @@ public class Ihm {
                             case "B":
                                 System.out.print(ANSI_BLACK_BACKGROUND+ANSI_GREEN+"B"+ANSI_RESET);
                                 break;
+                            case "*":
+                                System.out.print(ANSI_WHITE_BACKGROUND+ANSI_YELLOW+"D"+ANSI_RESET);
+                                break;
                             default:
                                 print(ANSI_GREEN_BACKGROUND + caseCarte + ANSI_RESET);
 
@@ -108,6 +111,9 @@ public class Ihm {
                                 break;
                             case "P":
                                 System.out.print("🪨");
+                                break;
+                            case "*":
+                                System.out.print("💎");
                                 break;
                             default:
                                 print("⬛️");
@@ -246,6 +252,7 @@ public class Ihm {
                 println("un animal");
                 return true;
             }
+            case "*" -> println("une Pierre Présieuse");
             default -> println("rien");
         }
         println("Se deplacer ? (O/N)");
