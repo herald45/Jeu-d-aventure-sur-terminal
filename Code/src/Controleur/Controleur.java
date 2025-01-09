@@ -4,6 +4,7 @@ import Modele.Animal.*;
 import Modele.Carte.Carte;
 import Modele.Pair;
 import Modele.Personnage;
+import Modele.PierresPrecieuses.Jeu;
 import Vue.Ihm;
 
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class Controleur {
     }
 
     private void lancerPartie(Carte carte, List<Animal> liA, Personnage P) {
+        Jeu sauvegarde =new Jeu(carte,liA,P);
         boolean Fin=false;
         int nCpt=1;
         while (!Fin){
@@ -98,6 +100,11 @@ public class Controleur {
                         P.getLi_nouriture().add(choixCoup.getSecond());
                         carte.deplacer(P.getLigne(),P.getColone(),coorDuCoup.getFirst(),coorDuCoup.getSecond(),"@");
                         P.setLigne(coorDuCoup.getFirst());P.setColone(coorDuCoup.getSecond());
+                    } else if (choixCoup.getSecond().equals("*")) {
+                        carte.deplacer(P.getLigne(),P.getColone(),coorDuCoup.getFirst(),coorDuCoup.getSecond(),"@");
+                        P.setLigne(coorDuCoup.getFirst());P.setColone(coorDuCoup.getSecond());
+                        int nombreAleatoire = (int) (Math.random() * 2);//entre 1 et 2
+                        sauvegarde.ramasserPierrePrecieux(3+nombreAleatoire);
                     } else if (choixCoup.getSecond().equals("E")||choixCoup.getSecond().equals("S")||choixCoup.getSecond().equals("R")||choixCoup.getSecond().equals("H")) {
                         //on estime qu'il est possible de fraper un predateur mais ca fait rien
                         if (ihm.demanderTaper()){
@@ -130,6 +137,8 @@ public class Controleur {
                 }
 
             }
+            sauvegarde.sauvegarderEtat();
+            sauvegarde.executerCommandes();
             Fin=!ihm.demanderContinuer();
             nCpt++;
         }

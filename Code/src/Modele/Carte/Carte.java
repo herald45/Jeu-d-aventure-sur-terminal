@@ -48,6 +48,18 @@ public class Carte {
         }
         fabrique.genererCarte(this);
     }
+    public Carte(Carte c){
+        this.nbLignes = c.getNbLignes();
+        this.nbColonnes = c.getNbColonnes();
+        this.theme = c.getTheme();
+        for (int i = 0; i <nbLignes; i++){
+            map.add(new ArrayList<>());
+            for(int j = 0; j < nbColonnes; j++){
+                map.get(i).add(j,c.map.get(i).get(j));
+            }
+        }
+
+    }
 
     public List<String> choixCase(int x, int y){
 
@@ -102,6 +114,12 @@ public class Carte {
         }
 
         ani.setCacher(false);
+    }
+    public Carte clone() {//pour les pierre présieuse
+        // Implémentation de la méthode clone pour copier toutes les données pertinentes
+        Carte nouvelleCarte = new Carte(this);
+        // Copiez ici les informations de la carte, comme les cases, les objets, etc.
+        return nouvelleCarte;
     }
 
     public void supprimer(int ligne, int colone){

@@ -45,6 +45,12 @@ public class Animal {
             ((EtatSinge) etat).JouerUnTour(ligne, colone, c);
         }
     }
+    public Animal clone() {//pour les pierre présieuse
+        // Implémentation de la méthode clone pour copier toutes les données pertinentes
+        Animal nouvelleAnimal = new Animal(ligne,colone,type);
+        // Copiez ici les informations de la carte, comme les cases, les objets, etc.
+        return nouvelleAnimal;
+    }
 
     // Méthode pour taper un écureuil
     public void TaperAnimal(int ligne, int colone, Carte c) {

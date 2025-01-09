@@ -16,6 +16,12 @@ public class Personnage {
         this.li_nouriture=new ArrayList<>();
     }
 
+    public Personnage clone() {//pour les pierre présieuse
+        // Implémentation de la méthode clone pour copier toutes les données pertinentes
+        Personnage nouvelleCarte = new Personnage(ligne,colone);
+        // Copiez ici les informations de la carte, comme les cases, les objets, etc.
+        return nouvelleCarte;
+    }
 
     public int getLigne() {
         return ligne;
