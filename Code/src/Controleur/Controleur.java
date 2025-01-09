@@ -1,8 +1,6 @@
 package Controleur;
 
-import Modele.Animal.Animal;
-import Modele.Animal.Hibou;
-import Modele.Animal.Renard;
+import Modele.Animal.*;
 import Modele.Carte.Carte;
 import Modele.Pair;
 import Modele.Personnage;
@@ -50,6 +48,10 @@ public class Controleur {
                 for (int j = 0; j <carte.getNbColonnes(); j++){
                     if (carte.getCase(i,j).equals("S")){
                         li_A.add(new Animal(i,j,"S"));
+                    }else if (carte.getCase(i,j).equals("R")){
+                        li_A.add(new Serpent(i,"R",j));
+                    } else if (carte.getCase(i,j).equals("H")) {
+                        li_A.add(new Scorpion(i,"H",j));
                     }
                 }
             }
