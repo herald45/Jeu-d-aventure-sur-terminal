@@ -19,7 +19,6 @@ public class Ihm {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     // Strings for background colors
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m" ;
@@ -193,20 +192,29 @@ public class Ihm {
         int nCpt2=1;
         for (int i = (p.getLigne() - 1); i < (p.getLigne() + 2); i++) {
             for (int j = (p.getColone() - 1); j < (p.getColone() + 2); j++) {
-                if (c.getCase(i,j).equals("A") || c.getCase(i,j).equals("B")) {
-                    print("❌");
-                } else if (c.getCase(i,j).equals("@")) {
-                    print("🙋");
-                } else {
-                    print(nCpt + " ");
-                    liChoix.putIfAbsent(nCpt, new Pair<>(new Pair<>(i,j),c.getCase(i,j)));
-                    nCpt++;
-                }
-                nCpt2++;
-                if ((nCpt2-1)%3==0){
-                    print("\n");
+                if (i>=0 && j>=0 && i<= c.getNbLignes()-1 && j<= c.getNbColonnes()-1){
+                    if (c.getCase(i, j).equals("A") || c.getCase(i, j).equals("B")||c.getCase(i, j).equals("J") || c.getCase(i, j).equals("P")) {
+                        print("❌");
+                    } else if (c.getCase(i, j).equals("@")) {
+                        print("🙋");
+                    } else {
+                        print(nCpt + " ");
+                        liChoix.putIfAbsent(nCpt, new Pair<>(new Pair<>(i, j), c.getCase(i, j)));
+                        nCpt++;
+                    }
+                    nCpt2++;
+                    if ((nCpt2 - 1) % 3 == 0) {
+                        print("\n");
+                    }
+                }else{
+                    print("🧱");
+                    nCpt2++;
+                    if ((nCpt2 - 1) % 3 == 0) {
+                        print("\n");
+                    }
                 }
             }
+
 
 
         }
@@ -222,7 +230,7 @@ public class Ihm {
             } else {
                 nChoixCase = scanner.nextInt();
                 if (0>nChoixCase || nChoixCase>nCpt-1){
-                    System.out.println("🙅‍ Saisie invalide. Choisir un chiffre entre 0  et "+nCpt);
+                    System.out.println("🙅‍ Saisie invalide. Choisir un chiffre entre 0  et "+ (nCpt-1));
                 }else {
                     break;
                 }
