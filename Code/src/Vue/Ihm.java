@@ -264,31 +264,40 @@ public class Ihm {
 
         }
     }
-    public int DemmenderPoserObjet(Personnage p){
+    public int DemmenderPoserObjet(Personnage p) {
         println("voulez vous Poser un objet ? (O/N)");
         Scanner sc = new Scanner(System.in);
         String rep;
-        while (true){
-            rep= sc.next();
+        while (true) {
+            rep = sc.next();
             if (rep.matches("[Oo]")) {
                 int choix_pose;
-                if (p.getLi_nouriture().contains("C") && p.getLi_nouriture().contains("G")) {
+                if (p.getLi_nouriture().contains("C") && p.getLi_nouriture().contains("G") && p.getLi_nouriture().contains("M")) {
                     Scanner scanner = new Scanner(System.in);
                     while (true) {
-                            println("1- Poser nouriture");
-                            println("2- Poser Champignon");
-                            if (!scanner.hasNextInt()) {
-                                System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
-                                scanner.next();
-                            } else {
-                                choix_pose = scanner.nextInt();
+                        println("1- Poser nouriture");
+                        println("2- Poser Champignon");
+                        println("3- Poser Champignon vénéneux (M)");
+                        if (!scanner.hasNextInt()) {
+                            System.out.println("🙅‍ Saisie invalide. Veuillez essayer à nouveau: ");
+                            scanner.next();
+                        } else {
+                            choix_pose = scanner.nextInt();
+                            if (choix_pose >= 1 && choix_pose <= 3) {
                                 break;
+                            } else {
+                                System.out.println("🙅‍ Choix invalide. Veuillez sélectionner 1, 2 ou 3.");
                             }
                         }
+                    }
                 } else if (p.getLi_nouriture().contains("G")) {
                     return 1;
-                }else {
+                } else if (p.getLi_nouriture().contains("C")) {
                     return 2;
+                } else if (p.getLi_nouriture().contains("M")) {
+                    return 3;
+                } else {
+                    return 0; // Aucun objet à poser
                 }
                 return choix_pose;
             } else if (rep.matches("[Nn]")) {
@@ -296,7 +305,7 @@ public class Ihm {
             } else {
                 System.out.println("🙅‍ Saisir soit O ou N (O/N)");
             }
-    }
+        }
     }
     public boolean demanderContinuer() {
         String rep;
